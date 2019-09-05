@@ -2,22 +2,21 @@
 <html>
 <body>
 
-<h2>The name Attribute</h2>
+<h2>Add Employees</h2>
 
 <form action="/submit" method="POST">
-  First name:<br>
+ Name:<br>
   <input type="text" name="Name" required>
   <br>
-  Last name:<br>
+  Title:<br>
   <input type="text" name="Title" required>
-  <br><br>
+  <br>Department<br>
   <input type="text" name="Department" required>
+  <br>
   <input type="submit" value="Submit">
+  
 </form> 
 
-<p>If you click the "Submit" button, the form-data will be sent to a page called "/action_page.php".</p>
-
-<p>Notice that the value of the "First name" field will not be submitted, because the input element does not have a name attribute.</p>
 
 </body>
 </html>
