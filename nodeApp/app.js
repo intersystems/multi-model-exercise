@@ -7,52 +7,47 @@ const url = require('url');
 const querystring = require('querystring');
 
 
-console.dir ( ip.address() );
+
 
 
 
 function main() 
 {
-  var ip = "104.154.144.38"
-  var port = 25404
-  var namespace = "USER"
-  var username = "SuperUser"
-  var password = "SYS"
-  
-  console.log("connection to Iris...")
-  const connection = irisnative.createConnection({host: ip, port: port, ns: namespace, user: username, pwd: password})
-  console.log("Hello World! You have successfully connected to InterSystems IRIS.")
-
-  const Iris = connection.createIris()
-
-  schemaTest = {
-    "Name": "Duong2",
-    "Title" : "Technical Course Developer",
-    "Department": "Learning Services"
+  const connectionConfig = {
+    host : "104.154.144.38", //ip address
+    port : 25404,
+    namespace : "USER",
+    username : "SuperUser",
+    password :"SYS"
   }
   
   
-  // status = Iris.classMethodValue("Demo.Employee", "fromJSON", JSON.stringify(schemaTest))
-  // console.log(status)
+  console.log("connection to Iris...")
+  const connection = irisnative.createConnection(connectionConfig)
+  console.log("Connected to InterSystems IRIS.")
+  console.dir ( ip.address() );
 
-
-
+  //create Iris native onbject to call class methods through the native API
+  const Iris = connection.createIris()
 
   http.createServer(function (req, res) {
     var q = url.parse(req.url);
+
     if (q.pathname =="/submit") {
-      
       let body = '';
       req.on('data', chunk => {
           body += chunk.toString(); // convert Buffer to string
       });
       req.on('end', () => {
+          //parsing the urlencoded form data
           body = querystring.parse(body)
+
+          //call the classmethod in the Employee class (inherited from the JSONMaker superclass)
           Iris.classMethodValue("Demo.Employee", "fromJSON", JSON.stringify(body))
-          console.log(body);
           res.end('ok');
       })
     }
+
     else {
     fs.readFile('static/index.html', function (err, data) {
       res.writeHead(200, {'Content-Type': 'text/html'});

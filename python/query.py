@@ -1,5 +1,4 @@
 import pyodbc
-import irisnative
 import createSchema
 
 def main():
