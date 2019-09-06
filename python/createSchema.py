@@ -49,7 +49,7 @@ def create_employee(connection):
 
 def run():
     # Get connections for PyODBC
-    pyodbc_connection, nativeapi_connection = connect_to_iris()
+    pyodbc_connection = connect_to_iris()
 
     # Populate and retrieve data using PyODBC
     create_employee(pyodbc_connection)

@@ -2,7 +2,7 @@ import pyodbc
 import createSchema
 
 def main():
-    connection, _ = createSchema.connect_to_iris()
+    connection = createSchema.connect_to_iris()
 
     queryStr = '''
         SELECT * FROM Demo.Employee
