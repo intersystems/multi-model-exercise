@@ -14,11 +14,11 @@ const querystring = require('querystring');
 function main() 
 {
   const connectionConfig = {
-    host : "104.154.144.38", //ip address
-    port : 25404,
-    namespace : "USER",
-    username : "SuperUser",
-    password :"SYS"
+    host : "104.198.220.84", 
+    port : 24903,
+    ns : "USER",
+    user : "SuperUser",
+    pwd :"SYS"
   }
   
   
@@ -58,4 +58,17 @@ function main()
   }).listen(8080);
 }
 
+function getConnectionsConfig() {
+  data = fs.readFileSync("../connections.config", "utf8")
+  data = data.split("\n")
+  config = {}
+  for (line of data) {
+    line = line.split(":")
+    if (line[0] == "driver"){continue}
+    config[line[0].trim()] = line[1].trim()
+  }
+  return config
+}
+
 main()
+
