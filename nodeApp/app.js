@@ -13,19 +13,20 @@ const querystring = require('querystring');
 
 function main() 
 {
+  preConfig = getConnectionsConfig()
   const connectionConfig = {
-    host : "104.198.220.84", 
-    port : 24903,
-    ns : "USER",
-    user : "SuperUser",
-    pwd :"SYS"
+    host : preConfig['ip'], 
+    port : parseInt(preConfig['port']),
+    ns : preConfig["namespace"],
+    user : preConfig["username"],
+    pwd : preConfig['password']
   }
   
   
   console.log("connection to Iris...")
   const connection = irisnative.createConnection(connectionConfig)
   console.log("Connected to InterSystems IRIS.")
-  console.dir ( ip.address() );
+  console.dir ( ip.address() + ":" + port);
 
   //create Iris native onbject to call class methods through the native API
   const Iris = connection.createIris()
