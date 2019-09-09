@@ -2,8 +2,7 @@
 Class Demo.Employee Extends (%Persistent,%JSON.Adaptor) [ ClassType = persistent, DdlAllowed, Final, Owner = {SuperUser}, ProcedureBlock, SqlRowIdPrivate, SqlTableName = Employee ]
 {
 
-Property ID As %Library.AutoIncrement(%JSONINCLUDE ="outputonly") [ SqlColumnNumber = 2 ];
-
+Property ID As %Library.AutoIncrement(%JSONINCLUDE ="outputonly") [ SqlColumnNumber = 2 ]; //change here
 Property Name As %Library.String(MAXLEN = 256) [ SqlColumnNumber = 3 ];
 
 Property Title As %Library.String(MAXLEN = 256) [ SqlColumnNumber = 4 ];
