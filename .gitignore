@@ -2,3 +2,5 @@ intersystems-iris-native/*
 package-lock.json
 package.json
 nodeApp/node_modules/*
+*.pyc
+./python/__pycache__/*
