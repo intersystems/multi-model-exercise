@@ -12,7 +12,6 @@ def connect_to_iris():
         .format(connection['driver'], connection['ip'], int(connection['port']),\
          connection['namespace'], connection['username'], connection['password'])
     pyodbc_connection = pyodbc.connect(connection_string)
-p
     print("Connected to InterSystem IRIS")
     return pyodbc_connection
 
