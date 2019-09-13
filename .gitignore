@@ -3,4 +3,4 @@ package-lock.json
 package.json
 nodeApp/node_modules/*
 *.pyc
-./python/__pycache__/*
+./python/__pycache__
