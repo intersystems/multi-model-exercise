@@ -13,13 +13,14 @@ def connect_to_iris():
          connection['namespace'], connection['username'], connection['password'])
     pyodbc_connection = pyodbc.connect(connection_string)
     pyodbc_connection.setdecoding(pyodbc.SQL_CHAR, encoding='raw')
-    pyodbc_connection.setencoding(str, encoding='raw'f)
+    pyodbc_connection.setencoding(str, encoding='raw')
     print("Connected to InterSystem IRIS")
     return pyodbc_connection
 
 def get_connection_config():
     with open("../connections.config") as f:
         f = f.read()
+        f = f.strip()
         f = f.split("\n")
         dict = {}
         for line in f:
