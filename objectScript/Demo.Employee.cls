@@ -21,11 +21,11 @@ Index EMPLOYEEPKEY1 On ID [ PrimaryKey, SqlName = EMPLOYEE_PKEY1, Type = index, 
 ClassMethod fromJSON(j as %String) As %Integer
 
 {
-	set e = ..%New()
-	do e.%JSONImport(j)
- 	set e.ID = 0
+	set e = ..%New() 	//create a new class instance
+	do e.%JSONImport(j) 	//call the %JSON.Adapter instance method to import JSON string
+ 	set e.ID = 0 		//this field must be set to 0 for the %Library.AutoIncrement class to increment correctly
  	
-	do e.%Save()
+	do e.%Save() 		//this persists the instance
 	
 	
 	
