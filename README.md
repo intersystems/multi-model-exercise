@@ -18,18 +18,18 @@ This exercise takes you through the steps to use InterSystems IRIS multi-model c
 
 2. In your preferred IDE, open `python/createSchema.py` and scroll down to the `create_employee` function. Below the function declaration, insert the following code:
 
-```python
-create_employee = """
-        CREATE TABLE Demo.Employee(
-            ID Integer PRIMARY KEY AUTO_INCREMENT,
-	    Name varchar(256),
-            Title varchar(256), 
-            Department varchar(50)
-        )
-    """
-```
+	```python
+	create_employee = """
+		CREATE TABLE Demo.Employee(
+		    ID Integer PRIMARY KEY AUTO_INCREMENT,
+		    Name varchar(256),
+		    Title varchar(256), 
+		    Department varchar(50)
+		)
+	    """
+	```
 
-As you can see, this is a standard SQL create statement that will generate an Employee table on your InterSystems IRIS instance.
+	As you can see, this is a standard SQL create statement that will generate an Employee table on your InterSystems IRIS instance.
 
 3. Run `python createSchema.py`. 
 
@@ -39,7 +39,7 @@ As you can see, this is a standard SQL create statement that will generate an Em
 
 7. If you have not installed InterSystems Atelier, follow [these instructions](https://download.intersystems.com/download/atelier.csp). Once downloaded and installed, open Atelier and connect your IRIS instance to it.  
 
-Atelier allows you to edit InterSystems IRIS classes directly so that you can customize how they behave. When you ran `createSchema.py` earlier, IRIS automatically created an ObjectScript class that represents that table.  We will need to modify this class to enable it to receive JSON data.
+	Atelier allows you to edit InterSystems IRIS classes directly so that you can customize how they behave. When you ran `createSchema.py` earlier, IRIS automatically created an ObjectScript class that represents that table.  We will need to modify this class to enable it to receive JSON data.
 
 8. Begin by creating a project in Atelier to store a local copy of your Demo.Employee class so that you can edit it.
 
