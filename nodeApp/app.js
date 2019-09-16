@@ -44,7 +44,7 @@ function main()
           body = querystring.parse(body)
 
           //call the classmethod in the Employee class (inherited from the JSONMaker superclass)
-          Iris.classMethodValue("Demo.Employee", "fromJSON", JSON.stringify(body))
+          Iris.classMethodValue("Demo.Employee", "fromJSON", JSON.stringify(body)) // MAKE THIS A STEP
           res.end('ok');
       })
     }
@@ -61,6 +61,7 @@ function main()
 
 function getConnectionsConfig() {
   data = fs.readFileSync("../connections.config", "utf8")
+  data = data.trim()
   data = data.split("\n")
   config = {}
   for (line of data) {
