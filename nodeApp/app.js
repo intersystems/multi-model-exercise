@@ -1,14 +1,10 @@
 const irisnative = require('intersystems-iris-native')
 const http = require('http')
-const port = 8080
 const ip = require("ip");
 const fs = require('fs')
 const url = require('url');
 const querystring = require('querystring');
-
-
-
-
+const port = 8080
 
 
 function main() 
@@ -23,7 +19,7 @@ function main()
   }
   
   
-  console.log("connection to Iris...")
+  console.log("connecting to InterSystems IRIS...")
   const connection = irisnative.createConnection(connectionConfig)
   console.log("Connected to InterSystems IRIS.")
   console.dir ( ip.address() + ":" + port);
@@ -43,9 +39,9 @@ function main()
           //parsing the urlencoded form data
           body = querystring.parse(body)
 
-          //call the classmethod in the Employee class (inherited from the JSONMaker superclass)
-          Iris.classMethodValue("Demo.Employee", "fromJSON", JSON.stringify(body)) // MAKE THIS A STEP
-          res.end('ok');
+        //Your code here
+        
+          res.end('Thank You');
       })
     }
 
