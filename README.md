@@ -13,8 +13,8 @@ This exercise takes you through the steps to use InterSystems IRIS multi-model c
 
 ## Create The Table Schema Using Python
 1. Install and configure python
-  * Follow [these directions to install pydobc](https://github.com/intersystems/quickstarts-python/blob/master/pyodbc_install.md)
-  * cd into `multi-model-exercises/python`
+  	* Follow [these directions to install pydobc](https://github.com/intersystems/quickstarts-python/blob/master/pyodbc_install.md)
+  	* cd into `multi-model-exercises/python`
 
 2. In your preferred IDE, open `python/createSchema.py` and scroll down to the `create_employee` function. Below the function declaration, insert the following code:
 
@@ -45,14 +45,36 @@ Atelier allows you to edit InterSystems IRIS classes directly so that you can cu
 
 9. In the Atelier server explorer, right click the `Demo.Employee` class, click ‘Copy to Project” and select the project you just created.
 
-10. In the Demo.Employee class and at the top where it says `extends %Persistant` change it to `Extends (%Persistent, 		JSONMaker)`
-  * Find the ID property in the Employee class and add `(%JSONINCLUDE = "outputonly")` after `%Library.AutoIncrement`
-  * Make sure to recompile the Demo.Employee class by saving it.
-  * You have now configured your SQL table class to receive JSON data and automatically create a new record from it.
+10. In the Demo.Employee class and at the top where it says `Extends %Persistant` change it to `Extends (%Persistent, 		%JSON.Adaptor)`.  InterSystems ObjectScript is an object-oriented programming language that supports multiple-inheritance.  This means that by inheriting the `%JSON.Adaptor` class, your table is now automatically able to import JSON data into instances.  For more information on the `%JSON.Adaptor` class [look here](https://docs.intersystems.com/irislatest/csp/docbook/DocBook.UI.Page.cls?KEY=GJSON_adaptor)
 
-11.	Install and configure Node.js
-  * `cd` into the nodeApp directory
-  * run `npm install --save intersystems-iris-native`
+11.  Because our table includes an auto_incremented primary key, we need to tell the `JSON.Adaptor` class not to look for that field in incoming JSON files, but to output it as a field when exporting class instances to JSON format.  To do this, find the ID property in the Employee class and add `(%JSONINCLUDE = "outputonly")` after `%Library.AutoIncrement`.
+
+12. Before we can run this file, we need to add one small function to expose the functionality of the `%JSON.Adaptor` class to the Native API (and, by extension, to our Node.js application).  Below the Property and Parameter declarations in the `Demo.Employee` class, paste the following code.
+
+```ObjectScript
+ClassMethod fromJSON(j as %String) As %Integer
+
+{
+	set e = ..%New() 	//create a new class instance
+	do e.%JSONImport(j) 	//call the %JSON.Adapter instance method to import JSON string
+ 	set e.ID = 0 		//this field must be set to 0 for the %Library.AutoIncrement class to increment correctly
+ 	
+	do e.%Save() 		//this persists the instance
+	
+	
+	
+	
+	return 1
+}
+```
+13. Make sure to recompile the Demo.Employee class by saving it. You have now configured your SQL table class to receive JSON data and automatically create a new record from it.
+
+## Create A Node.js App to send JSON files to your database.
+11. If you do not have Node.js installed locally, download and install it [here](https://nodejs.org/en/download/)
+
+12. `cd` into the nodeApp directory
+
+13. Run `npm install --save intersystems-iris-native`. This installs the InterSystems IRIS Native API, which enables you to both access the underlying data structures in your database, and to call ObjectScript class methods directly from your code.
 
 12.	In the terminal, type node app.js
 
