@@ -4,13 +4,13 @@ import os
 
 
 def connect_to_iris():
-    # Login credentials
-
     connection = get_connection_config()
+    
     # Connect to InterSystems IRIS using PyODBC
     connection_string = 'DRIVER={};SERVER={};PORT={};DATABASE={};UID={};PWD={}'\
         .format(connection['driver'], connection['ip'], int(connection['port']),\
          connection['namespace'], connection['username'], connection['password'])
+    
     pyodbc_connection = pyodbc.connect(connection_string)
     pyodbc_connection.setdecoding(pyodbc.SQL_CHAR, encoding='raw')
     pyodbc_connection.setencoding(str, encoding='raw')
@@ -38,12 +38,11 @@ def create_employee(connection):
     # Create cursor
     cursor = connection.cursor()
 
-    # Copy create statement below
+    # Paste create statement below
 
     try:
         cursor.execute(create_employee)
     except Exception as e:
-        print("need to delete old table",e)
         delete_old_table(cursor, "Demo.Employee")
         cursor.execute(create_employee)
 
