@@ -1,4 +1,3 @@
-/// 
 Class Demo.Employee Extends (%Persistent,%JSON.Adaptor) [ ClassType = persistent, DdlAllowed, Final, Owner = {SuperUser}, ProcedureBlock, SqlRowIdPrivate, SqlTableName = Employee ]
 {
 
