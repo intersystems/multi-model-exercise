@@ -79,19 +79,21 @@ Atelier allows you to edit InterSystems IRIS classes directly so that you can cu
 12. Open the `app.js` file and navigate down to the line `body = querystring.parse(body)` and paste the following lines below that 
 
 	```JavaScript
-		  //call the classmethod in the Employee class (inherited from the JSONMaker superclass)
+		  //call the classmethod in the Employee class to create and persists a new database record
 		  Iris.classMethodValue("Demo.Employee", "fromJSON", JSON.stringify(body))
 	```
 
 	This code calls a class method using the Native API and passes a JSON string as a parameter.  For more information, 		see [Calling ObjectScript Methods and Functions](https://docs.intersystems.com/irislatest/csp/docbook/DocBook.UI.Page.cls?KEY=BJSNAT_call)
 
-12. In the terminal, type node app.js
+12. In the terminal, type node `app.js`
 
-13.	Navigate to the ip address outputted to the terminal.
-  * You should see a simple HTML form with inputs for all of the fields in your Demo.Employee table.
-  * Enter John Smith, Software Engineer, Engineering for the three fields and click submit
+13. Navigate to the IP address outputted to the terminal. You should see a simple HTML form with inputs for all of the fields in your Demo.Employee table.
 
-14.	Quit the Node.js server by pressing control-c and CD back into the Python directory
+14. Enter `John Smith`, `Software Engineer`, and `Engineering` for the three fields and click submit
 
-15.	Run python query.py
-  * You should see outputted the results of the SQL query, which includes the record you inserted through Node of John 			Smith.
+## Query The Database With Python
+14. Quit the Node.js server by pressing `control-c` and `cd` back into the Python directory
+
+15. Run `python query.py` You should see outputted the results of the SQL query, which includes the record you inserted through Node of John Smith.
+
+
