@@ -38,15 +38,8 @@ def create_employee(connection):
     # Create cursor
     cursor = connection.cursor()
 
-    # Create Demo.Location table in the InterSystems IRIS database
-    create_employee = """
-        CREATE TABLE Demo.Employee(
-            ID Integer PRIMARY KEY AUTO_INCREMENT,
-            Name varchar(256),
-            Title varchar(256), 
-            Department varchar(50)
-        )
-    """
+    # Copy create statement below
+
     try:
         cursor.execute(create_employee)
     except Exception as e:
