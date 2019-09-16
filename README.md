@@ -78,11 +78,12 @@ ClassMethod fromJSON(j as %String) As %Integer
 
 12. Open the `app.js` file and navigate down to the line `body = querystring.parse(body)` and paste the following lines below that 
 
-```JavaScript
-          //call the classmethod in the Employee class (inherited from the JSONMaker superclass)
-          Iris.classMethodValue("Demo.Employee", "fromJSON", JSON.stringify(body))
-```
-This code calls a class method using the Native API and passes a JSON string as a parameter.  For more information, see [Calling ObjectScript Methods and Functions(https://docs.intersystems.com/irislatest/csp/docbook/DocBook.UI.Page.cls?KEY=BJSNAT_call)
+	```JavaScript
+		  //call the classmethod in the Employee class (inherited from the JSONMaker superclass)
+		  Iris.classMethodValue("Demo.Employee", "fromJSON", JSON.stringify(body))
+	```
+
+	This code calls a class method using the Native API and passes a JSON string as a parameter.  For more information, 		see [Calling ObjectScript Methods and Functions](https://docs.intersystems.com/irislatest/csp/docbook/DocBook.UI.Page.cls?KEY=BJSNAT_call)
 
 12. In the terminal, type node app.js
 
