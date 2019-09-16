@@ -76,7 +76,15 @@ ClassMethod fromJSON(j as %String) As %Integer
 
 13. Run `npm install --save intersystems-iris-native`. This installs the InterSystems IRIS Native API, which enables you to both access the underlying data structures in your database, and to call ObjectScript class methods directly from your code.
 
-12.	In the terminal, type node app.js
+12. Open the `app.js` file and navigate down to the line `body = querystring.parse(body)` and paste the following lines below that 
+
+```JavaScript
+          //call the classmethod in the Employee class (inherited from the JSONMaker superclass)
+          Iris.classMethodValue("Demo.Employee", "fromJSON", JSON.stringify(body))
+```
+This code calls a class method using the Native API and passes a JSON string as a parameter.  For more information, see [Calling ObjectScript Methods and Functions(https://docs.intersystems.com/irislatest/csp/docbook/DocBook.UI.Page.cls?KEY=BJSNAT_call)
+
+12. In the terminal, type node app.js
 
 13.	Navigate to the ip address outputted to the terminal.
   * You should see a simple HTML form with inputs for all of the fields in your Demo.Employee table.
