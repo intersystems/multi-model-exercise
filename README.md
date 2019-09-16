@@ -51,22 +51,22 @@ Atelier allows you to edit InterSystems IRIS classes directly so that you can cu
 
 12. Before we can run this file, we need to add one small function to expose the functionality of the `%JSON.Adaptor` class to the Native API (and, by extension, to our Node.js application).  Below the Property and Parameter declarations in the `Demo.Employee` class, paste the following code.
 
-```ObjectScript
-ClassMethod fromJSON(j as %String) As %Integer
+		```ObjectScript
+		ClassMethod fromJSON(j as %String) As %Integer
 
-{
-	set e = ..%New() 	//create a new class instance
-	do e.%JSONImport(j) 	//call the %JSON.Adapter instance method to import JSON string
- 	set e.ID = 0 		//this field must be set to 0 for the %Library.AutoIncrement class to increment correctly
- 	
-	do e.%Save() 		//this persists the instance
-	
-	
-	
-	
-	return 1
-}
-```
+		{
+			set e = ..%New() 	//create a new class instance
+			do e.%JSONImport(j) 	//call the %JSON.Adapter instance method to import JSON string
+			set e.ID = 0 		//this field must be set to 0 for the %Library.AutoIncrement class to increment correctly
+
+			do e.%Save() 		//this persists the instance
+
+
+
+
+			return 1
+		}
+		```
 13. Make sure to recompile the Demo.Employee class by saving it. You have now configured your SQL table class to receive JSON data and automatically create a new record from it.
 
 ## Create A Node.js App to send JSON files to your database.
