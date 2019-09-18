@@ -1,6 +1,6 @@
 # Multi-Model Exercise
 
-This exercise takes you through the steps to use InterSystems IRIS multi-model capability to create a Node.js application that to sends JSON data straight to your database instance without any parsing or mapping. We will use Python, JavaScript, and InterSystems ObjectScript to interact with the data from different contexts. First, we will use Python to create our table schema using standard SQL statements.  Then, we will modify the underlying ObjectScript class for that table to allow it to receive and persist JSON data directly. Next, we will create a simple Node.js application that will send JSON files to our instance of InterSystems IRIS. Finally, we will query that database using Python again to see how the same data could be accessed in multiple languages from multiple contexts.
+This exercise takes you through the steps to use InterSystems IRIS multi-model capability to create a Node.js application that  sends JSON data straight to your database instance without any parsing or mapping. We will use Python, JavaScript, and InterSystems ObjectScript to interact with the data from different contexts. First, we will use Python to create our table schema using standard SQL statements.  Then, we will modify the underlying ObjectScript class for that table to allow it to receive and persist JSON data directly. Next, we will create a simple Node.js application that will send JSON files to our instance of InterSystems IRIS. Finally, we will query that database using Python again to see how the same data could be accessed in multiple languages from multiple contexts.
 
 ## Installation steps:
 
@@ -46,9 +46,9 @@ This exercise takes you through the steps to use InterSystems IRIS multi-model c
 	As you can see, this is a standard SQL create statement that will generate an Employee table on your InterSystems IRIS instance.
 
 3. Run `python createSchema.py`. 
-	* Note: This exercise is configured for Python3. For some users, you may need to run `python3 createSchema.py`. 
+	* Note: This exercise is configured for Python 3. For some users, you may need to run `python3 createSchema.py` if the `python` command defaults to Python 2. 
 	
-1. Open the management portal by following the link given to you when you created your instance of the InterSystems IRIS learning labs, navigate to **System Explorer > SQL** and expand the **Tables** section.  Observe that the Demo.Employee table has been created.
+1. Open the management portal by following the link given to you when you created your instance of the InterSystems IRIS learning labs (or if on the docker container, go to `http://localhost:52773/csp/sys/%25CSP.Portal.Home.zen`), navigate to **System Explorer > SQL** and expand the **Tables** section.  Observe that the Demo.Employee table has been created.
 ## Modify the table class using InterSystems ObjectScript
 
 ### Setting Up Atelier
@@ -64,7 +64,7 @@ This exercise takes you through the steps to use InterSystems IRIS multi-model c
 ### Modifying Classes With Atelier
 
 
-1. In the Demo.Employee class and at the top where it says `Extends %Persistent` change it to `Extends (%Persistent, 		%JSON.Adaptor)`.  InterSystems ObjectScript is an object-oriented programming language that supports multiple-inheritance.  This means that by inheriting the `%JSON.Adaptor` class, your table is now automatically able to import JSON data into instances.  For more information on the `%JSON.Adaptor` class [look here](https://docs.intersystems.com/irislatest/csp/docbook/DocBook.UI.Page.cls?KEY=GJSON_adaptor)
+1. In the Demo.Employee class and at the top where it says `Extends %Persistent` change it to `Extends (%Persistent, 		%JSON.Adaptor)`.  InterSystems ObjectScript is an object-oriented programming language that supports multiple-inheritance.  This means that by inheriting the `%JSON.Adaptor` class, your table is now automatically able to import JSON data into instances.  For more information on the `%JSON.Adaptor` class [look here](https://docs.intersystems.com/irislatest/csp/docbook/DocBook.UI.Page.cls?KEY=GJSON_adaptor).
 
 11.  Because our table includes an auto_incremented primary key, we need to tell the `JSON.Adaptor` class not to look for that field in incoming JSON files, but to output it as a field when exporting class instances to JSON format.  To do this, find the ID property in the Employee class and add `(%JSONINCLUDE = "outputonly")` after `%Library.AutoIncrement`.
 
@@ -89,14 +89,14 @@ This exercise takes you through the steps to use InterSystems IRIS multi-model c
 13. Make sure to recompile the Demo.Employee class by saving it. You have now configured your SQL table class to receive JSON data and automatically create a new record from it.
 
 ## Create A Node.js App to send JSON files to your database.
-11. If you do not have Node.js installed locally, download and install it [here](https://nodejs.org/en/download/).
+1. If you do not have Node.js installed locally, download and install it [here](https://nodejs.org/en/download/).
 	* Note: once Node.js is installed, you may need to restart your terminal in order for it to recognize `node` commands.
 
-12.Run `cd ../nodeApp`
+12.Run `cd ../nodeApp`.
 
 13. Run `npm install --save intersystems-iris-native`. This installs the InterSystems IRIS Native API, which enables you to both access the underlying data structures in your database, and to call ObjectScript class methods directly from your code.
 
-12. Open the `app.js` file and navigate down to the line `body = querystring.parse(body)` and paste the following lines below that 
+12. Open the `app.js` file and navigate down to the line `body = querystring.parse(body)` and paste the following lines below that .
 
 	```JavaScript
 		  //call the classmethod in the Employee class to create and persists a new database record
@@ -105,15 +105,15 @@ This exercise takes you through the steps to use InterSystems IRIS multi-model c
 
 	This code calls a class method using the Native API and passes a JSON string as a parameter.  For more information, 		see [Calling ObjectScript Methods and Functions](https://docs.intersystems.com/irislatest/csp/docbook/DocBook.UI.Page.cls?KEY=BJSNAT_call)
 
-12. In the terminal, type `node app.js`
+12. In the terminal, type `node app.js`.
 
 13. Navigate to the IP address outputted to the terminal. You should see a simple HTML form with inputs for all of the fields in your Demo.Employee table.
 
-14. Enter `JJ Smith`, `Software Engineer`, and `Engineering` for the three fields and click submit
+14. Enter `JJ Smith`, `Software Engineer`, and `Engineering` for the three fields and click submit.
 
 ## Query The Database With Python
 14. Quit the Node.js server by pressing `control-c` and `cd` back into the Python directory (`cd ../python`)
 
-15. Run `python query.py` You should see outputted the results of the SQL query, which includes the record you inserted through Node of John Smith.
+15. Run `python query.py` You should see outputted the results of the SQL query, which includes the record you inserted through Node of JJ Smith.
 
 
