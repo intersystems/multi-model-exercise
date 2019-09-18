@@ -4,19 +4,33 @@ This exercise takes you through the steps to use InterSystems IRIS multi-model c
 
 ## Installation steps:
 
-1. Begin by downloading this repository to your local machine `git clone https://github.com/zkrowiak/multi-model-exercies`.
+1. Begin by downloading this repository to your local machine `git clone https://github.com/intersystems/multi-model-exercise`.
 
 2. Open the connections.config file in the top-level directory.
 
-3. Enter the Intersystems IP and Port listed for your intersystem IRIS instance and save.
+3. Enter the Intersystems IP and Port listed for your intersystem IRIS instance and save. If you are using the InterSystems IRIS Learning Labs instance (which can be found [here](https://www.intersystems.com/try-intersystems-iris-for-free/)), enter the IP and Port listed under 'External Connections.' If you are using the InterSystems [IRIS community edition through Docker](https://hub.docker.com/_/intersystems-iris-data-platform), you will need to follow a few extra steps:
+	  * Install Docker 
+	  * Run `docker run --name my-iris2 -d -p 52773:52773 -p 51773:51773 store/intersystems/iris-community:2019.3.0.302.0` 
+	  * Navigate to `http://localhost:52773/csp/sys/%25CSP.Portal.Home.zen` and update your password. If necessary, replace 'localhost' with your computer's IP address
+	  * Change your password in the connections.config file to the one you chose. Change the port value to `51773`and change the IP to 'localhost' or your computer's IP address.
 
 
 ## Create The Table Schema Using Python
 1. Install and configure python
-  	* Follow [these directions to install pydobc](https://github.com/intersystems/quickstarts-python/blob/master/pyodbc_install.md)
-  	* cd into `multi-model-exercises/python`
+  	* Run `cd ./python`
+	* If on a Mac:
+		* Install [homebrew](https://brew.sh/)
+		* Run `brew install unixodbc`
+		* Run `odbcinst -i -d -f pyodbc_wheel/odbcinst.ini`
+		* Run `pip install pip==7.1.2`
+		* Run `pip install --upgrade --global-option=build_ext --global-option="-I/usr/local/include" --global-option="-L/usr/local/lib" --allow-external pyodbc --allow-unverified pyodbc pyodbc`
+	* If on a Windows:
+		* Run `./pyodbc_wheel/ODBC-2019.1.0.510.0-win_x64.exe`
+		* Run `pip install pyodbc`
+		
+		
 
-2. In your preferred IDE, open `python/createSchema.py` and scroll down to the `create_employee` function. Below the function declaration, insert the following code:
+2. In your preferred IDE or text editor, open `python/createSchema.py` and scroll down to the `create_employee` function. Below the function declaration, insert the following code:
 
 	```python
 	create_employee = """
@@ -32,12 +46,14 @@ This exercise takes you through the steps to use InterSystems IRIS multi-model c
 	As you can see, this is a standard SQL create statement that will generate an Employee table on your InterSystems IRIS instance.
 
 3. Run `python createSchema.py`. 
-
-## Modify the table class using InterSystems ObjectScript
+	* Note: This exercise is configured for Python3. For some users, you may need to run `python3 createSchema.py`. 
 	
 1. Open the management portal by following the link given to you when you created your instance of the InterSystems IRIS learning labs, navigate to **System Explorer > SQL** and expand the **Tables** section.  Observe that the Demo.Employee table has been created.
+## Modify the table class using InterSystems ObjectScript
 
-7. If you have not installed InterSystems Atelier, follow [these instructions](https://download.intersystems.com/download/atelier.csp). Once downloaded and installed, open Atelier and connect your IRIS instance to it.  
+### Setting Up Atelier
+
+1. If you have not installed InterSystems Atelier, follow [these instructions](https://download.intersystems.com/download/atelier.csp). Once downloaded and installed, open Atelier and connect your IRIS instance to it.  
 
 	Atelier allows you to edit InterSystems IRIS classes directly so that you can customize how they behave. When you ran `createSchema.py` earlier, IRIS automatically created an ObjectScript class that represents that table.  We will need to modify this class to enable it to receive JSON data.
 
@@ -45,7 +61,10 @@ This exercise takes you through the steps to use InterSystems IRIS multi-model c
 
 9. In the Atelier server explorer, right click the `Demo.Employee` class, click ‘Copy to Project” and select the project you just created.
 
-10. In the Demo.Employee class and at the top where it says `Extends %Persistent` change it to `Extends (%Persistent, 		%JSON.Adaptor)`.  InterSystems ObjectScript is an object-oriented programming language that supports multiple-inheritance.  This means that by inheriting the `%JSON.Adaptor` class, your table is now automatically able to import JSON data into instances.  For more information on the `%JSON.Adaptor` class [look here](https://docs.intersystems.com/irislatest/csp/docbook/DocBook.UI.Page.cls?KEY=GJSON_adaptor)
+### Modifying Classes With Atelier
+
+
+1. In the Demo.Employee class and at the top where it says `Extends %Persistent` change it to `Extends (%Persistent, 		%JSON.Adaptor)`.  InterSystems ObjectScript is an object-oriented programming language that supports multiple-inheritance.  This means that by inheriting the `%JSON.Adaptor` class, your table is now automatically able to import JSON data into instances.  For more information on the `%JSON.Adaptor` class [look here](https://docs.intersystems.com/irislatest/csp/docbook/DocBook.UI.Page.cls?KEY=GJSON_adaptor)
 
 11.  Because our table includes an auto_incremented primary key, we need to tell the `JSON.Adaptor` class not to look for that field in incoming JSON files, but to output it as a field when exporting class instances to JSON format.  To do this, find the ID property in the Employee class and add `(%JSONINCLUDE = "outputonly")` after `%Library.AutoIncrement`.
 
@@ -70,9 +89,10 @@ This exercise takes you through the steps to use InterSystems IRIS multi-model c
 13. Make sure to recompile the Demo.Employee class by saving it. You have now configured your SQL table class to receive JSON data and automatically create a new record from it.
 
 ## Create A Node.js App to send JSON files to your database.
-11. If you do not have Node.js installed locally, download and install it [here](https://nodejs.org/en/download/)
+11. If you do not have Node.js installed locally, download and install it [here](https://nodejs.org/en/download/).
+	* Note: once Node.js is installed, you may need to restart your terminal in order for it to recognize `node` commands.
 
-12. `cd` into the nodeApp directory
+12.Run `cd ../nodeApp`
 
 13. Run `npm install --save intersystems-iris-native`. This installs the InterSystems IRIS Native API, which enables you to both access the underlying data structures in your database, and to call ObjectScript class methods directly from your code.
 
@@ -85,14 +105,14 @@ This exercise takes you through the steps to use InterSystems IRIS multi-model c
 
 	This code calls a class method using the Native API and passes a JSON string as a parameter.  For more information, 		see [Calling ObjectScript Methods and Functions](https://docs.intersystems.com/irislatest/csp/docbook/DocBook.UI.Page.cls?KEY=BJSNAT_call)
 
-12. In the terminal, type node `app.js`
+12. In the terminal, type `node app.js`
 
 13. Navigate to the IP address outputted to the terminal. You should see a simple HTML form with inputs for all of the fields in your Demo.Employee table.
 
-14. Enter `John Smith`, `Software Engineer`, and `Engineering` for the three fields and click submit
+14. Enter `JJ Smith`, `Software Engineer`, and `Engineering` for the three fields and click submit
 
 ## Query The Database With Python
-14. Quit the Node.js server by pressing `control-c` and `cd` back into the Python directory
+14. Quit the Node.js server by pressing `control-c` and `cd` back into the Python directory (`cd ../python`)
 
 15. Run `python query.py` You should see outputted the results of the SQL query, which includes the record you inserted through Node of John Smith.
 
