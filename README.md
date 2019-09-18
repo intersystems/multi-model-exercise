@@ -48,7 +48,7 @@ This exercise takes you through the steps to use InterSystems IRIS multi-model c
 3. Run `python createSchema.py`. 
 	* Note: This exercise is configured for Python 3. For some users, you may need to run `python3 createSchema.py` if the `python` command defaults to Python 2. 
 	
-1. Open the management portal by following the link given to you when you created your instance of the InterSystems IRIS learning labs (or if on the docker container, go to `http://localhost:52773/csp/sys/%25CSP.Portal.Home.zen`), navigate to **System Explorer > SQL** and expand the **Tables** section.  Observe that the Demo.Employee table has been created.
+1. Open the management portal by following the link given to you when you created your instance of the InterSystems IRIS learning labs (or if on the docker container, go to [http://localhost:52773/csp/sys/%25CSP.Portal.Home.zen](http://localhost:52773/csp/sys/%25CSP.Portal.Home.zen), navigate to **System Explorer > SQL** and expand the **Tables** section.  Observe that the Demo.Employee table has been created.
 ## Modify the table class using InterSystems ObjectScript
 
 ### Setting Up Atelier
@@ -94,7 +94,7 @@ This exercise takes you through the steps to use InterSystems IRIS multi-model c
 1. If you do not have Node.js installed locally, download and install it [here](https://nodejs.org/en/download/).
 	* Note: once Node.js is installed, you may need to restart your terminal in order for it to recognize `node` commands.
 
-12.Run `cd ../nodeApp`.
+12.Run `cd ../nodeApp`
 
 13. Run `npm install --save intersystems-iris-native`. This installs the InterSystems IRIS Native API, which enables you to both access the underlying data structures in your database, and to call ObjectScript class methods directly from your code.
 
@@ -107,7 +107,7 @@ This exercise takes you through the steps to use InterSystems IRIS multi-model c
 
 	This code calls a class method using the Native API and passes a JSON string as a parameter.  For more information, 		see [Calling ObjectScript Methods and Functions](https://docs.intersystems.com/irislatest/csp/docbook/DocBook.UI.Page.cls?KEY=BJSNAT_call)
 
-12. In the terminal, type `node app.js`.
+12. In the terminal, type `node app.js`
 
 13. Navigate to the IP address outputted to the terminal. You should see a simple HTML form with inputs for all of the fields in your Demo.Employee table.
 
