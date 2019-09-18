@@ -13,7 +13,7 @@ def connect_to_iris():
     
     pyodbc_connection = pyodbc.connect(connection_string)
     pyodbc_connection.setdecoding(pyodbc.SQL_CHAR, encoding='utf-8')
-    pyodbc_connection.setencoding(str, encoding='utf-8')
+    pyodbc_connection.setencoding(encoding='utf-8')
     print("Connected to InterSystem IRIS")
     return pyodbc_connection
 
