@@ -1,6 +1,6 @@
 # Multi-Model Exercise
 
-This exercise takes you through the steps to use InterSystems IRIS multi-model capability to create a Node.js application that  sends JSON data straight to your database instance without any parsing or mapping. We will use Python, JavaScript, and InterSystems ObjectScript to interact with the data from different contexts. First, we will use Python to create our table schema using standard SQL statements.  Then, we will modify the underlying ObjectScript class for that table to allow it to receive and persist JSON data directly. Next, we will create a simple Node.js application that will send JSON files to our instance of InterSystems IRIS. Finally, we will query that database using Python again to see how the same data could be accessed in multiple languages from multiple contexts.
+This exercise takes you through the steps to use InterSystems IRIS multi-model capability to create a Node.js application that  sends JSON data straight to your database instance without any parsing or mapping. If you have not already, we recommend also looking at the [Multi-Model Quickstart](https://gettingstarted.intersystems.com/multimodel-overview/multimodel-quickstart/). We will use Python, JavaScript, and InterSystems ObjectScript to interact with the data from different contexts. First, we will use Python to create our table schema using standard SQL statements.  Then, we will modify the underlying ObjectScript class for that table to allow it to receive and persist JSON data directly. Next, we will create a simple Node.js application that will send JSON files to our instance of InterSystems IRIS. Finally, we will query that database using Python again to see how the same data could be accessed in multiple languages from multiple contexts.
 
 ## Installation steps:
 
@@ -14,7 +14,7 @@ This exercise takes you through the steps to use InterSystems IRIS multi-model c
 
 2. Open the connections.config file in the top-level directory.
 
-3. Enter the Intersystems IP and Port listed for your intersystem IRIS instance and save. If you are using the InterSystems IRIS Learning Labs instance (which can be found [here](https://www.intersystems.com/try-intersystems-iris-for-free/)), enter the IP and Port listed under 'External Connections.' If you are using the InterSystems [IRIS community edition through Docker](https://hub.docker.com/_/intersystems-iris-data-platform), you will need to follow a few extra steps:
+3. Enter the Intersystems IP and Port listed for your intersystem IRIS instance and save. If you are using the InterSystems IRIS Learning Labs instance (which can be found [here](https://www.intersystems.com/try-intersystems-iris-for-free/)), enter the IP and Port listed under 'External Connections.' If you are using the InterSystems [InterSystems IRIS community edition through Docker](https://hub.docker.com/_/intersystems-iris-data-platform), you will need to follow a few extra steps:
 	  * Install Docker 
 	  * Run `docker run --name my-iris2 -d -p 52773:52773 -p 51773:51773 store/intersystems/iris-community:2019.3.0.302.0` 
 	  * Navigate to `http://localhost:52773/csp/sys/%25CSP.Portal.Home.zen` and update your password. If necessary, replace 'localhost' with your computer's IP address
@@ -60,9 +60,9 @@ This exercise takes you through the steps to use InterSystems IRIS multi-model c
 
 ### Setting Up Atelier
 
-1. If you have not installed InterSystems Atelier, follow [these instructions](https://download.intersystems.com/download/atelier.csp). Once downloaded and installed, open Atelier and connect your IRIS instance to it.  
+1. If you have not installed InterSystems Atelier, follow [these instructions](https://download.intersystems.com/download/atelier.csp). Once downloaded and installed, open Atelier and connect your InterSystems IRIS instance to it.  
 
-	Atelier allows you to edit InterSystems IRIS classes directly so that you can customize how they behave. When you ran `createSchema.py` earlier, IRIS automatically created an ObjectScript class that represents that table.  We will need to modify this class to enable it to receive JSON data.
+	Atelier allows you to edit InterSystems IRIS classes directly so that you can customize how they behave. When you ran `createSchema.py` earlier, InterSystems IRIS automatically created an ObjectScript class that represents that table.  We will need to modify this class to enable it to receive JSON data.
 
 2. In the Atelier perspective, navigate to the **Server Explorer** and select the green 'plus' sign to create a new server. Give it a name, and supply it with the IP, Port, and login info you used in your connections.config file.
 
