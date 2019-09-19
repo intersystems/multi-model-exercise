@@ -134,4 +134,6 @@ Problem | Likely Solution
 ------------------------- | ------------------------
 When I run python createSchema.py I get a 'Data source name not found' error | You may have the 32 bit version of python installed on your computer instead of the 64 bit.
 When I run createSchema.py I get an error about consistant tabs or spaces | When pasting the create_table statement, make sure that the variable name (`create_table`) is declared at the same indentation level as the preceding declarations. 
+My node.js app quits unexpectedly when I hit 'submit' | Make sure you hit save in Atelier and that the class compiled successfully. 
+I'm on a Windows and the `python` command is not recognized. 	| Be sure to add python to your environment variables. 
 
