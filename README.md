@@ -94,7 +94,9 @@ This exercise takes you through the steps to use InterSystems IRIS multi-model c
 1. If you do not have Node.js installed locally, download and install it [here](https://nodejs.org/en/download/).
 	* Note: once Node.js is installed, you may need to restart your terminal in order for it to recognize `node` commands.
 
-12.Run `cd ../nodeApp`
+12. Run `cd ../nodeApp`
+
+12. Run `npm install ip`
 
 13. Run `npm install --save intersystems-iris-native`. This installs the InterSystems IRIS Native API, which enables you to both access the underlying data structures in your database, and to call ObjectScript class methods directly from your code.
 
