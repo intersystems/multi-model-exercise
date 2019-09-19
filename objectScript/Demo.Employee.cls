@@ -33,40 +33,4 @@ ClassMethod fromJSON(j as %String) As %Integer
 }
 
 
-Storage Default
-{
-<CounterLocation>^Demo.EmployeeC</CounterLocation>
-<Data name="EmployeeDefaultData">
-<Value name="1">
-<Value>ID</Value>
-</Value>
-<Value name="2">
-<Value>Name</Value>
-</Value>
-<Value name="3">
-<Value>Title</Value>
-</Value>
-<Value name="4">
-<Value>Department</Value>
-</Value>
-</Data>
-<DataLocation>^CATa.D1Ex.1</DataLocation>
-<DefaultData>EmployeeDefaultData</DefaultData>
-<ExtentLocation>^CATa.D1Ex</ExtentLocation>
-<IdFunction>sequence</IdFunction>
-<IdLocation>^CATa.D1Ex.1</IdLocation>
-<Index name="DDLBEIndex">
-<Location>^CATa.D1Ex.2</Location>
-</Index>
-<Index name="EMPLOYEEPKEY1">
-<Location>^CATa.D1Ex.3</Location>
-</Index>
-<Index name="IDKEY">
-<Location>^CATa.D1Ex.1</Location>
-</Index>
-<IndexLocation>^CATa.D1Ex.I</IndexLocation>
-<StreamLocation>^CATa.D1Ex.S</StreamLocation>
-<Type>%Storage.Persistent</Type>
-}
 
-}
