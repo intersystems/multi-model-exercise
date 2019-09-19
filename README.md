@@ -4,7 +4,15 @@ This exercise takes you through the steps to use InterSystems IRIS multi-model c
 
 ## Installation steps:
 
-1. Begin by downloading this repository to your local machine `git clone https://github.com/intersystems/multi-model-exercise`.
+1. This exercise requires the 64-bit version of Python 3.
+	* If you already have Python installed, make sure to check what bit version you are using by launching the python shell by typing `python` .  If the version is 2, try quitting the shell (`control-z + enter` on Windows, `control-d` on Mac) and typing `python3` . 
+	* Install Python by going here https://www.python.org/downloads/ 
+	* NOTE: do not click the 'Download Python 3.7.4' button directly on that site as it might download the 32 bit version of python, which will not work with the exercise. Make sure to select the link to your operating system and download the 64 bit Python file.
+	* You may need to restart your terminal or even add python to the PATH environment variable if the python command does not work after installing python.
+
+2. If you have already launched your terminal 
+
+2. Begin by downloading this repository to your local machine `git clone https://github.com/intersystems/multi-model-exercise`.
 
 2. Open the connections.config file in the top-level directory.
 
@@ -27,10 +35,11 @@ This exercise takes you through the steps to use InterSystems IRIS multi-model c
 	* If on a Windows:
 		* Run `./pyodbc_wheel/ODBC-2019.1.0.510.0-win_x64.exe`
 		* Run `pip install pyodbc`
+			* If the `pip` command is not recognized, you can also use `py -m pip install` for any `pip` installation command.
 		
 		
 
-2. In your preferred IDE or text editor, open `python/createSchema.py` and scroll down to the `create_employee` function. Below the function declaration, insert the following code:
+2. In your preferred IDE or text editor, open `python/createSchema.py` and scroll down to the `create_employee` function. Below the function declaration, insert the following code (make sure that the variable name is declared at the same indentation level as the preceding declarations. Since python uses white space to process control flow, you will need to paste this code into the :
 
 	```python
 	create_employee = """
