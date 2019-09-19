@@ -32,5 +32,5 @@ ClassMethod fromJSON(j as %String) As %Integer
 	return 1
 }
 
-
+}
 
