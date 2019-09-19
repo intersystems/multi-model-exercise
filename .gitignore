@@ -3,3 +3,4 @@ package-lock.json
 nodeApp/node_modules/*
 *.pyc
 ./python/__pycache__
+*/.DS_Store
