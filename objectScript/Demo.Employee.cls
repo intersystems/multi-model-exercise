@@ -33,8 +33,5 @@ ClassMethod fromJSON(jsonString as %String) As %Status
 }
 
 
-	return 1
-}
-
 }
 
