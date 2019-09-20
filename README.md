@@ -6,7 +6,8 @@ This exercise takes you through the steps to use InterSystems IRIS multi-model c
 
 1. This exercise requires the 64-bit version of Python 3.
 	* If you already have Python installed, make sure to check what bit version you are using by launching the python shell by typing `python` .  If the version is 2, try quitting the shell (`control-z + enter` on Windows, `control-d` on Mac) and typing `python3` .
-	* Install Python by going here https://www.python.org/downloads/ (be sure to check off 'Add Python to environment variables' in the 
+	* Install Python by going here https://www.python.org/downloads/ (be sure to check off 'Add Python to environment variables' in the'Advanced Options' section of the installation.
+
 	* NOTE: do not click the 'Download Python 3.7.4' button directly on that site as it might download the 32 bit version of python, which will not work with the exercise. Make sure to select the link to your operating system and download the 64 bit Python file.
 	* You may need to restart your terminal or even add python to the PATH environment variable if the python command does not work after installing python.
 
