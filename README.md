@@ -80,14 +80,21 @@ This exercise takes you through the steps to use InterSystems IRIS multi-model c
 12. Before we can run this file, we need to add one small class method to expose the functionality of the `%JSON.Adaptor` class to the Native API (and, by extension, to our Node.js application).  Below the Property and Parameter declarations in the `Demo.Employee` class, paste the following code.
 
 	```ObjectScript
-		ClassMethod fromJSON(j as %String) As %Integer
+		ClassMethod fromJSON(jsonString as %String) As %Status
 
 		{
-			set e = ..%New() 	//create a new class instance
-			do e.%JSONImport(j) 	//call the %JSON.Adapter instance method to import JSON string
-			set e.ID = 0 		//this field must be set to 0 for the %Library.AutoIncrement class to increment correctly
+			set employee = ..%New() 		//create a new class instance
+			do employee.%JSONImport(jsonString) 	//call the %JSON.Adapter instance method to import JSON string
+			set employee.ID = 0 			//this field must be set to 0 for the %Library.AutoIncrement class to increment correctly
 
-			do e.%Save() 		//this persists the instance
+			set status =  employee.%Save() 		//this persists the instance
+
+
+
+
+			return status
+		}
+
 
 
 
