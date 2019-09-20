@@ -17,18 +17,22 @@ Index DDLBEIndex [ Extent, SqlName = "%%DDLBEIndex", Type = bitmap ];
 Index EMPLOYEEPKEY1 On ID [ PrimaryKey, SqlName = EMPLOYEE_PKEY1, Type = index, Unique ];
 
 
-ClassMethod fromJSON(j as %String) As %Integer
+ClassMethod fromJSON(jsonString as %String) As %Status
 
 {
-	set e = ..%New() 	//create a new class instance
-	do e.%JSONImport(j) 	//call the %JSON.Adapter instance method to import JSON string
- 	set e.ID = 0 		//this field must be set to 0 for the %Library.AutoIncrement class to increment correctly
- 	
-	do e.%Save() 		//this persists the instance
-	
-	
-	
-	
+	set employee = ..%New() 		//create a new class instance
+	do employee.%JSONImport(jsonString) 	//call the %JSON.Adapter instance method to import JSON string
+	set employee.ID = 0 			//this field must be set to 0 for the %Library.AutoIncrement class to increment correctly
+
+	set status =  employee.%Save() 		//this persists the instance
+
+
+
+
+	return status
+}
+
+
 	return 1
 }
 
