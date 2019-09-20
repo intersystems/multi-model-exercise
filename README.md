@@ -76,7 +76,7 @@ This exercise takes you through the steps to use InterSystems IRIS multi-model c
 
 1. In the Demo.Employee class and at the top where it says `Extends %Persistent` change it to `Extends (%Persistent, 		%JSON.Adaptor)`.  InterSystems ObjectScript is an object-oriented programming language that supports multiple-inheritance.  This means that by inheriting the `%JSON.Adaptor` class, your table is now automatically able to import JSON data into instances.  For more information on the `%JSON.Adaptor` class [look here](https://docs.intersystems.com/irislatest/csp/docbook/DocBook.UI.Page.cls?KEY=GJSON_adaptor).
 
-11.  Because our table includes an auto_incremented primary key, we need to tell the `JSON.Adaptor` class not to look for that field in incoming JSON files, but to output it as a field when exporting class instances to JSON format.  To do this, find the ID property in the Employee class and add `(%JSONINCLUDE = "outputonly")` after `%Library.AutoIncrement`.
+11.  Because our table includes an auto-incremented primary key, we need to tell the `JSON.Adaptor` class not to look for that field in incoming JSON files, but to output it as a field when exporting class instances to JSON format.  To do this, find the ID property in the Employee class and add `(%JSONINCLUDE = "outputonly")` after `%Library.AutoIncrement`.
 
 12. Before we can run this file, we need to add one small class method to expose the functionality of the `%JSON.Adaptor` class to the Native API (and, by extension, to our Node.js application).  Below the Property and Parameter declarations in the `Demo.Employee` class, paste the following code.
 
