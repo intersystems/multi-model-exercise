@@ -99,7 +99,7 @@ This exercise takes you through the steps to use InterSystems IRIS multi-model c
 
 
 
-		return 1
+		return status
 	}
 	```
 13. Make sure to recompile the Demo.Employee class by saving it. You have now configured your SQL table class to receive JSON data and automatically create a new record from it.
