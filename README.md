@@ -52,6 +52,8 @@ This exercise takes you through the steps to use InterSystems IRIS multi-model c
 	```
 
 	As you can see, this is a standard SQL create statement that will generate an Employee table on your InterSystems IRIS instance.
+	
+	Note: if you are using python 2 or earlier, follow the commented instructions in `createschema.py` in the `connect_to_iris()` function to configure the connection properly.
 
 3. Run `python createSchema.py`. 
 	* Note: This exercise is configured for Python 3. For some users, you may need to run `python3 createSchema.py` if the `python` command defaults to Python 2. 
