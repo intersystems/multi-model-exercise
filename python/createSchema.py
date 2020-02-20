@@ -12,7 +12,7 @@ def connect_to_iris():
          connection['namespace'], connection['username'], connection['password'])
     pyodbc_connection = pyodbc.connect(connection_string)
 
-    # for python 3 and above. Comment out if using python 2 or earlier.
+    # For python 3 and above.
     pyodbc_connection.setdecoding(pyodbc.SQL_CHAR, encoding='utf-8')
     pyodbc_connection.setencoding(encoding='utf-8')
 
