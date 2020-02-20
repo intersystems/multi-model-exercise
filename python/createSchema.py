@@ -10,10 +10,18 @@ def connect_to_iris():
     connection_string = 'DRIVER={};SERVER={};PORT={};DATABASE={};UID={};PWD={}'\
         .format(connection['driver'], connection['ip'], int(connection['port']),\
          connection['namespace'], connection['username'], connection['password'])
-    
     pyodbc_connection = pyodbc.connect(connection_string)
+
+    # For python 3 and above.
     pyodbc_connection.setdecoding(pyodbc.SQL_CHAR, encoding='utf-8')
     pyodbc_connection.setencoding(encoding='utf-8')
+
+    # If you are using python 2 or before, replace the setencoding() method above
+    # with the commented out implementation below:
+
+    # pyodbc_connection.setdecoding(pyodbc.SQL_CHAR, encoding='utf-8', to=str)
+    # pyodbc_connection.setencoding(str, encoding='utf-8')
+
     print("Connected to InterSystem IRIS")
     return pyodbc_connection
 
