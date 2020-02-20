@@ -8,7 +8,7 @@ This exercise takes you through the steps to use InterSystems IRIS multi-model c
 	* If you already have Python installed, make sure to check what bit version you are using by launching the python shell by typing `python` .  If the version is 2, try quitting the shell (`control-z + enter` on Windows, `control-d` on Mac) and typing `python3` .
 	* Install Python by going here https://www.python.org/downloads/ (be sure to check off 'Add Python to environment variables' in the'Advanced Options' section of the installation.
 
-	* NOTE: do not click the 'Download Python 3.7.4' button directly on that site as it might download the 32 bit version of python, which will not work with the exercise. Make sure to select the link to your operating system and download the 64 bit Python file.
+	* **Note**: do not click the 'Download Python 3.7.4' button directly on that site as it might download the 32 bit version of python, which will not work with the exercise. Make sure to select the link to your operating system and download the 64 bit Python file.
 	* You may need to restart your terminal or even add python to the PATH environment variable if the python command does not work after installing python.
 
 2. Begin by downloading this repository to your local machine `git clone https://github.com/intersystems/multi-model-exercise`.
@@ -53,10 +53,10 @@ This exercise takes you through the steps to use InterSystems IRIS multi-model c
 
 	As you can see, this is a standard SQL create statement that will generate an Employee table on your InterSystems IRIS instance.
 	
-	Note: if you are using python 2 or earlier, follow the commented instructions in `createschema.py` in the `connect_to_iris()` function to configure the connection properly.
+	**Note**: if you are using python 2 or earlier, follow the commented instructions in `createschema.py` in the `connect_to_iris()` function to configure the connection properly.
 
 3. Run `python createSchema.py`. 
-	* Note: This exercise is configured for Python 3. For some users, you may need to run `python3 createSchema.py` if the `python` command defaults to Python 2. 
+	* **Note**: This exercise is configured for Python 3. For some users, you may need to run `python3 createSchema.py` if the `python` command defaults to Python 2. 
 	
 1. Open the management portal by following the link given to you when you created your instance of the InterSystems IRIS learning labs (or if on the docker container, go to [http://localhost:52773/csp/sys/%25CSP.Portal.Home.zen](http://localhost:52773/csp/sys/%25CSP.Portal.Home.zen), navigate to **System Explorer > SQL** and expand the **Tables** section.  Observe that the Demo.Employee table has been created.
 ## Modify the table class using InterSystems ObjectScript
@@ -103,7 +103,7 @@ This exercise takes you through the steps to use InterSystems IRIS multi-model c
 
 ## Create A Node.js App to send JSON files to your database.
 1. If you do not have Node.js installed locally, download and install it [here](https://nodejs.org/en/download/).
-	* Note: once Node.js is installed, you may need to restart your terminal in order for it to recognize `node` commands.
+	* **Note**: once Node.js is installed, you may need to restart your terminal in order for it to recognize `node` commands.
 
 12. Run `cd ../nodeApp`
 
