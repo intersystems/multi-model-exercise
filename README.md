@@ -126,11 +126,11 @@ ClassMethod fromJSON(jsonString as %String) As %Status
 12. Create a new file called `record.json` containing the following JSON opject:
 
 	```javascript
-		{
-			"Name": "JJ Smith",
-			"Title": "Software Engineer",
-			"Department": "Engineering"
-		}
+	{
+		"Name": "JJ Smith",
+		"Title": "Software Engineer",
+		"Department": "Engineering"
+	}
 	```
 
 13. Run `npm install --save intersystems-iris-native`. This installs the InterSystems IRIS Native API, which enables you to both access the underlying data structures in your database, and to call ObjectScript class methods directly from your code.
@@ -139,9 +139,9 @@ ClassMethod fromJSON(jsonString as %String) As %Status
 12. Open the `app.js` file and navigate down to the line `const Iris = connection.createIris()` and paste the following lines below that .
 
 	```JavaScript
-		  	record = JSON.parse(fs.readFileSync("./record.json", "utf8"))
-  			Iris.classMethodValue("Demo.Employee", "fromJSON", JSON.stringify(record))
-  			console.log(`Created new record`)
+	record = JSON.parse(fs.readFileSync("./record.json", "utf8"))
+	Iris.classMethodValue("Demo.Employee", "fromJSON", JSON.stringify(record))
+	console.log(`Created new record`)
 	```
 
 	This code calls a class method using the Native API and passes a JSON string as a parameter.  For more information, 		see [Calling ObjectScript Methods and Functions](https://docs.intersystems.com/irislatest/csp/docbook/DocBook.UI.Page.cls?KEY=BJSNAT_call)
