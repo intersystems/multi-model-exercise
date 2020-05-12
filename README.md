@@ -15,7 +15,7 @@ This exercise takes you through the steps to use InterSystems IRIS multi-model c
 
 2. Open the connections.config file in the top-level directory.
 
-3. Enter the Intersystems IP and Port listed for your intersystem IRIS instance and save. If you are using the InterSystems IRIS Learning Labs instance (which can be found [here](https://www.intersystems.com/try-intersystems-iris-for-free/)), you only need to update the ip field to match the ‘external ip’ field found in your lab. If you are using the InterSystems [InterSystems IRIS community edition through Docker](https://hub.docker.com/_/intersystems-iris-data-platform), you will need to follow a few extra steps:
+3. Enter the Intersystems IP and Port listed for your intersystem IRIS instance and save. If you are using the InterSystems IRIS Sandbox instance (which can be found [here](https://www.intersystems.com/try-intersystems-iris-for-free/)), you only need to update the ip field to match the ‘external ip’ field found in your lab. If you are using the InterSystems [InterSystems IRIS community edition through Docker](https://hub.docker.com/_/intersystems-iris-data-platform), you will need to follow a few extra steps:
 	  * Install Docker 
 	  * Run `docker run --name my-iris2 -d -p 52773:52773 -p 51773:51773 store/intersystems/iris-community:2019.3.0.302.0` 
 	  * Navigate to `http://localhost:52773/csp/sys/%25CSP.Portal.Home.zen` and update your password. If necessary, replace 'localhost' with your computer's IP address
@@ -25,10 +25,12 @@ This exercise takes you through the steps to use InterSystems IRIS multi-model c
 ## Create The Table Schema Using Python
 1. Install and configure python
   	* Run `cd ./python`
+	* If on the sandbox:
+		* Run `odbcinst -i -d -f pyodbc_wheel/linux/odbcinst.ini`
 	* If on a Mac:
 		* Install [homebrew](https://brew.sh/)
 		* Run `brew install unixodbc`
-		* Run `odbcinst -i -d -f pyodbc_wheel/odbcinst.ini`
+		* Run `odbcinst -i -d -f pyodbc_wheel/mac/odbcinst.ini`
 		* Run `pip install pip==7.1.2`
 		* Run `pip install --upgrade --global-option=build_ext --global-option="-I/usr/local/include" --global-option="-L/usr/local/lib" --allow-external pyodbc --allow-unverified pyodbc pyodbc`
 	* If on a Windows:
@@ -58,7 +60,7 @@ This exercise takes you through the steps to use InterSystems IRIS multi-model c
 3. Run `python createSchema.py`. 
 	* **Note**: This exercise is configured for Python 3. For some users, you may need to run `python3 createSchema.py` if the `python` command defaults to Python 2. 
 	
-1. Open the management portal by following the link given to you when you created your instance of the InterSystems IRIS learning labs (or if on the docker container, go to [http://localhost:52773/csp/sys/%25CSP.Portal.Home.zen](http://localhost:52773/csp/sys/%25CSP.Portal.Home.zen), navigate to **System Explorer > SQL** and expand the **Tables** section.  Observe that the Demo.Employee table has been created.
+1. Open the management portal by following the link given to you when you created your instance of the InterSystems IRIS sandbox (or if on the docker container, go to [http://localhost:52773/csp/sys/%25CSP.Portal.Home.zen](http://localhost:52773/csp/sys/%25CSP.Portal.Home.zen), navigate to **System Explorer > SQL** and expand the **Tables** section.  Observe that the Demo.Employee table has been created.
 ## Modify the table class using InterSystems ObjectScript
 
 ### Setting Up Atelier
@@ -67,7 +69,7 @@ This exercise takes you through the steps to use InterSystems IRIS multi-model c
 
 	Atelier allows you to edit InterSystems IRIS classes directly so that you can customize how they behave. When you ran `createSchema.py` earlier, InterSystems IRIS automatically created an ObjectScript class that represents that table.  We will need to modify this class to enable it to receive JSON data.
 
-2. In the Atelier perspective, navigate to the **Server Explorer** and select the green 'plus' sign to create a new server. Name it and supply it with the server, port, and login info supplied with your learning lab. Note that you must supply the webserver port (typically 52773) rather than the superserver port you provided for the ODBC connection above.  If you are using the learning lab, you can find this information in the “external IDE” url and port. 
+2. In the Atelier perspective, navigate to the **Server Explorer** and select the green 'plus' sign to create a new server. Name it and supply it with the server, port, and login info supplied with your sandbox. Note that you must supply the webserver port (typically 52773) rather than the superserver port you provided for the ODBC connection above.  If you are using the sandbox, you can find this information in the “external IDE” url and port. 
 
 8. Switch to the **Atelier Explorer** and create a project in Atelier to store a local copy of your Demo.Employee class so that you can edit it.
 
