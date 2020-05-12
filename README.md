@@ -70,18 +70,18 @@ This exercise takes you through the steps to use InterSystems IRIS multi-model c
 2. In the extensions manager, search for and install the `InterSystems ObjectScript` extension.
 
 3. Open your Visual Studio Code settings (**File** (or **Code** if on a Mac) > **Preferences** > **Settings** > **InterSystems ObjectScript** and select **Edit in settings.json**.  Paste the following JSON, filling in the settings for your InterSystems IRIS instance connection:
-		```JSON
-		"objectscript.conn": {
-								"active": true, 
-								"label": "LOCAL",
-								"host": "<ip for your instance>", // If using Sandbox, use the Atelier Server Address provided.
-								"port": 80, // If using Sandbox,  the Atelier Server Port provided.
-								"username": "tech",
-								"password": "demo",
-								"ns": "USER", // this is the namespace you wish to connect to 
-								"https": false
-		}
-		```
+	```javascript
+	"objectscript.conn": {
+		"active": true, 
+		"label": "LOCAL",
+		"host": "<ip for your instance>", // If using Sandbox, use the Atelier Server Address provided.
+		"port": 80, // If using Sandbox,  the Atelier Server Port provided.
+		"username": "tech",
+		"password": "demo",
+		"ns": "USER", // this is the namespace you wish to connect to 
+		"https": false
+	}
+	```
 
 2. Navigate to  on the ObjectScript extension in your Visual Studio Code, right click `Demo/Employee.cls` and select **Export**.
 
@@ -98,23 +98,23 @@ This exercise takes you through the steps to use InterSystems IRIS multi-model c
 
 12. Before we can run this file, we need to add one small class method to expose the functionality of the `%JSON.Adaptor` class to the Native API (and, by extension, to our Node.js application).  Below the Property and Parameter declarations in the `Demo.Employee` class, paste the following code.
 
-	```ObjectScript
-	ClassMethod fromJSON(jsonString as %String) As %Status
+```ObjectScript
+ClassMethod fromJSON(jsonString as %String) As %Status
 
-	{
-		set employee = ..%New() 		//create a new class instance
-		do employee.%JSONImport(jsonString) 	//call the %JSON.Adapter instance method to import JSON string
-		set employee.ID = 0 			//this field must be set to 0 for the %Library.AutoIncrement class to increment correctly
+{
+	set employee = ..%New() 		//create a new class instance
+	do employee.%JSONImport(jsonString) 	//call the %JSON.Adapter instance method to import JSON string
+	set employee.ID = 0 			//this field must be set to 0 for the %Library.AutoIncrement class to increment correctly
 
-		set status =  employee.%Save() 		//this persists the instance
-
-
+	set status =  employee.%Save() 		//this persists the instance
 
 
-		return status
-	}
-	
-	```
+
+
+	return status
+}
+
+```
 13. Make sure to recompile the Demo.Employee class by saving it. You have now configured your SQL table class to receive JSON data and automatically create a new record from it.
 
 ## Create A Node.js App to send JSON files to your database.
@@ -125,13 +125,13 @@ This exercise takes you through the steps to use InterSystems IRIS multi-model c
 
 12. Create a new file called `record.json` containing the following JSON opject:
 
-		```JSON
-			{
-				"Name": "JJ Smith",
-				"Title": "Software Engineer",
-				"Department": "Engineering"
-			}
-		```
+	```javascript
+		{
+			"Name": "JJ Smith",
+			"Title": "Software Engineer",
+			"Department": "Engineering"
+		}
+	```
 
 13. Run `npm install --save intersystems-iris-native`. This installs the InterSystems IRIS Native API, which enables you to both access the underlying data structures in your database, and to call ObjectScript class methods directly from your code.
 
