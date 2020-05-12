@@ -63,19 +63,33 @@ This exercise takes you through the steps to use InterSystems IRIS multi-model c
 1. Open the management portal by following the link given to you when you created your instance of the InterSystems IRIS sandbox (or if on the docker container, go to [http://localhost:52773/csp/sys/%25CSP.Portal.Home.zen](http://localhost:52773/csp/sys/%25CSP.Portal.Home.zen), navigate to **System Explorer > SQL** and expand the **Tables** section.  Observe that the Demo.Employee table has been created.
 ## Modify the table class using InterSystems ObjectScript
 
-### Setting Up Atelier
+### Setting Up the Visual Studio Code ObjectScript Extension
 
-1. If you have not installed InterSystems Atelier, follow [these instructions](https://download.intersystems.com/download/atelier.csp). Once downloaded and installed, open Atelier and connect your InterSystems IRIS instance to it.  
+1. If you have not installed InterSystems Visual Studio Code, do so  [here](https://code.visualstudio.com/). Once installed, open Visual Studio code and select a folder for your workspace by clicking **Open Folder**.
 
-	Atelier allows you to edit InterSystems IRIS classes directly so that you can customize how they behave. When you ran `createSchema.py` earlier, InterSystems IRIS automatically created an ObjectScript class that represents that table.  We will need to modify this class to enable it to receive JSON data.
+2. In the extensions manager, search for and install the `InterSystems ObjectScript` extension.
 
-2. In the Atelier perspective, navigate to the **Server Explorer** and select the green 'plus' sign to create a new server. Name it and supply it with the server, port, and login info supplied with your sandbox. Note that you must supply the webserver port (typically 52773) rather than the superserver port you provided for the ODBC connection above.  If you are using the sandbox, you can find this information in the “external IDE” url and port. 
+3. Open your Visual Studio Code settings (**File** (or **Code** if on a Mac) > **Preferences** > **Settings** > **InterSystems ObjectScript** and select **Edit in settings.json**.  Paste the following JSON, filling in the settings for your InterSystems IRIS instance connection:
+		```JSON
+		"objectscript.conn": {
+								"active": true, 
+								"label": "LOCAL",
+								"host": "<ip for your instance>", // If using Sandbox, use the Atelier Server Address provided.
+								"port": 80, // If using Sandbox,  the Atelier Server Port provided.
+								"username": "tech",
+								"password": "demo",
+								"ns": "USER", // this is the namespace you wish to connect to 
+								"https": false
+		}
+		```
 
-8. Switch to the **Atelier Explorer** and create a project in Atelier to store a local copy of your Demo.Employee class so that you can edit it.
+2. Navigate to  on the ObjectScript extension in your Visual Studio Code, right click `Demo/Employee.cls` and select **Export**.
+
+8. Navigate to the **File Explorere** and open the newly created `src/Demo/Employee.cls` file.
 
 9. Next, back in the **Server Explorer** right click the `Demo.Employee` class, click ‘Copy to Project” and select the project you just created.
 
-### Modifying Classes With Atelier
+### Modifying Classes With Visual Studio Code
 
 
 1. In the Demo.Employee class and at the top where it says `Extends %Persistent` change it to `Extends (%Persistent, 		%JSON.Adaptor)`.  InterSystems ObjectScript is an object-oriented programming language that supports multiple-inheritance.  This means that by inheriting the `%JSON.Adaptor` class, your table is now automatically able to import JSON data into instances.  For more information on the `%JSON.Adaptor` class [look here](https://docs.intersystems.com/irislatest/csp/docbook/DocBook.UI.Page.cls?KEY=GJSON_adaptor).
@@ -109,24 +123,32 @@ This exercise takes you through the steps to use InterSystems IRIS multi-model c
 
 12. Run `cd ../nodeApp`
 
-12. Run `npm install ip`
+12. Create a new file called `record.json` containing the following JSON opject:
+
+		```JSON
+			{
+				"Name": "JJ Smith",
+				"Title": "Software Engineer",
+				"Department": "Engineering"
+			}
+		```
 
 13. Run `npm install --save intersystems-iris-native`. This installs the InterSystems IRIS Native API, which enables you to both access the underlying data structures in your database, and to call ObjectScript class methods directly from your code.
 
-12. Open the `app.js` file and navigate down to the line `body = querystring.parse(body)` and paste the following lines below that .
+
+12. Open the `app.js` file and navigate down to the line `const Iris = connection.createIris()` and paste the following lines below that .
 
 	```JavaScript
-		  //call the classmethod in the Employee class to create and persists a new database record
-		  Iris.classMethodValue("Demo.Employee", "fromJSON", JSON.stringify(body))
+		  	record = JSON.parse(fs.readFileSync("./record.json", "utf8"))
+  			Iris.classMethodValue("Demo.Employee", "fromJSON", JSON.stringify(record))
+  			console.log(`Created new record`)
 	```
 
 	This code calls a class method using the Native API and passes a JSON string as a parameter.  For more information, 		see [Calling ObjectScript Methods and Functions](https://docs.intersystems.com/irislatest/csp/docbook/DocBook.UI.Page.cls?KEY=BJSNAT_call)
 
-12. In the terminal, type `node app.js`
+12. In the terminal, type `node app.js`. The node application will output that it has created a new record.
 
-13. Navigate to the IP address outputted to the terminal. You should see a simple HTML form with inputs for all of the fields in your Demo.Employee table.
 
-14. Enter `JJ Smith`, `Software Engineer`, and `Engineering` for the three fields and click submit.
 
 ## Query The Database With Python
 14. Quit the Node.js server by pressing `control-c` and `cd` back into the Python directory (`cd ../python`)
@@ -140,6 +162,6 @@ Problem | Likely Solution
 ------------------------- | ------------------------
 When I run python createSchema.py I get a 'Data source name not found' error | You may have the 32 bit version of python installed on your computer instead of the 64 bit.
 When I run createSchema.py I get an error about consistant tabs or spaces | When pasting the create_table statement, make sure that the variable name (`create_table`) is declared at the same indentation level as the preceding declarations. 
-My node.js app quits unexpectedly when I hit 'submit' | Make sure you hit save in Atelier and that the class compiled successfully. 
+My node.js app quits unexpectedly when I hit 'submit' | Make sure you hit save in Visual Studio Code and that the class compiled successfully. 
 I'm on a Windows and the `python` command is not recognized. 	| Be sure to add python to your environment variables. 
 
