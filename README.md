@@ -27,13 +27,13 @@ This exercise takes you through the steps to use InterSystems IRIS multi-model c
   	* Run `cd ./python`
 	* If on the sandbox:
 		* Run `odbcinst -i -d -f pyodbc_wheel/linux/odbcinst.ini`
-	* If on a Mac:
+	* If on macOS:
 		* Install [homebrew](https://brew.sh/)
 		* Run `brew install unixodbc`
 		* Run `odbcinst -i -d -f pyodbc_wheel/mac/odbcinst.ini`
 		* Run `pip install pip==7.1.2`
 		* Run `pip install --upgrade --global-option=build_ext --global-option="-I/usr/local/include" --global-option="-L/usr/local/lib" --allow-external pyodbc --allow-unverified pyodbc pyodbc`
-	* If on a Windows:
+	* If on Windows:
 		* Run `./pyodbc_wheel/ODBC-2019.1.0.510.0-win_x64.exe`
 		* Run `pip install pyodbc`
 			* If the `pip` command is not recognized, you can also use `py -m pip install` for any `pip` installation command.
@@ -58,17 +58,21 @@ This exercise takes you through the steps to use InterSystems IRIS multi-model c
 	**Note**: if you are using python 2 or earlier, follow the commented instructions in `createschema.py` in the `connect_to_iris()` function to configure the connection properly.
 
 3. Run `python createSchema.py`. 
-	* **Note**: This exercise is configured for Python 3. For some users, you may need to run `python3 createSchema.py` if the `python` command defaults to Python 2. 
+   * **Note**: This exercise is configured for Python 3. For some users, you may need to run `python3 createSchema.py` if the `python` command defaults to Python 2. 
 	
-1. Open the management portal by following the link given to you when you created your instance of the InterSystems IRIS sandbox (or if on the docker container, go to [http://localhost:52773/csp/sys/%25CSP.Portal.Home.zen](http://localhost:52773/csp/sys/%25CSP.Portal.Home.zen), navigate to **System Explorer > SQL** and expand the **Tables** section.  Observe that the Demo.Employee table has been created.
+4. Validate the `Demo.Employee` table has been created.
+   1. Open the management portal by following the link given to you when you created your instance of the InterSystems IRIS sandbox (or if on the docker container, go to [http://localhost:52773/csp/sys/%25CSP.Portal.Home.zen](http://localhost:52773/csp/sys/%25CSP.Portal.Home.zen). 
+   2. Switch to the `USER` namespace, if necessary, by clicking "Switch" next to "Namespace %SYS"
+   3. Navigate to **System Explorer > SQL** and expand the **Tables** section. Find `Demo.Employee` in the list.
+
+
 ## Modify the table class using InterSystems ObjectScript
 
 ### Setting Up the Visual Studio Code ObjectScript Extension
 
-1. If you have not installed InterSystems Visual Studio Code, do so  [here](https://code.visualstudio.com/). Once installed, open Visual Studio code and select a folder for your workspace by clicking **Open Folder**.
-
-2. In the extensions manager, search for and install the `InterSystems ObjectScript` extension.
-
+1. If you have not installed InterSystems Visual Studio Code, do so  [here](https://code.visualstudio.com/).
+2. Open Visual Studio code. In the extensions manager, search for and install the `InterSystems ObjectScript` extension.
+3. Select a folder for your workspace by selecting **Open Folder** (or **Open** on a Mac) from the File menu. Navigate to the folder where you .
 3. Open your Visual Studio Code settings (**File** (or **Code** if on a Mac) > **Preferences** > **Settings** > **InterSystems ObjectScript** and select **Edit in settings.json**.  Paste the following JSON, filling in the settings for your InterSystems IRIS instance connection:
 	```javascript
 	"objectscript.conn": {
@@ -139,7 +143,7 @@ ClassMethod fromJSON(jsonString as %String) As %Status
 12. Open the `app.js` file and navigate down to the line `const Iris = connection.createIris()` and paste the following lines below that .
 
 	```JavaScript
-	record = JSON.parse(fs.readFileSync("./record.json", "utf8"))
+	let record = JSON.parse(fs.readFileSync("./record.json", "utf8"))
 	Iris.classMethodValue("Demo.Employee", "fromJSON", JSON.stringify(record))
 	console.log(`Created new record`)
 	```
@@ -151,17 +155,16 @@ ClassMethod fromJSON(jsonString as %String) As %Status
 
 
 ## Query The Database With Python
-14. Quit the Node.js server by pressing `control-c` and `cd` back into the Python directory (`cd ../python`)
+1.  `cd` back into the Python directory (`cd ../python`)
 
-15. Run `python query.py` You should see outputted the results of the SQL query, which includes the record you inserted through Node of JJ Smith.
+2.  Run `python query.py` You should see outputted the results of the SQL query, which includes the record you inserted through Node of JJ Smith.
 
-
-# Troubleshooting
+## Troubleshooting
 
 Problem | Likely Solution 
 ------------------------- | ------------------------
-When I run python createSchema.py I get a 'Data source name not found' error | You may have the 32 bit version of python installed on your computer instead of the 64 bit.
-When I run createSchema.py I get an error about consistant tabs or spaces | When pasting the create_table statement, make sure that the variable name (`create_table`) is declared at the same indentation level as the preceding declarations. 
+When I run `python createSchema.py` I get a 'Data source name not found' error | You may have the 32 bit version of python installed on your computer instead of the 64 bit.
+When I run `python createSchema.py` I get an error about inconsistent tabs or spaces | When pasting the create_table statement, make sure that the variable name (`create_table`) is declared at the same indentation level as the preceding declarations. 
 My node.js app quits unexpectedly when I hit 'submit' | Make sure you hit save in Visual Studio Code and that the class compiled successfully. 
 I'm on a Windows and the `python` command is not recognized. 	| Be sure to add python to your environment variables. 
 
