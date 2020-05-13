@@ -1,12 +1,12 @@
 # Multi-Model Exercise
 
-This exercise takes you through the steps to use InterSystems IRIS multi-model capability to create a Node.js application that  sends JSON data straight to your database instance without any parsing or mapping. If you have not already, we recommend also looking at the [Multi-Model Quickstart](https://gettingstarted.intersystems.com/multimodel-overview/multimodel-quickstart/). We will use Python, JavaScript, and InterSystems ObjectScript to interact with the data from different contexts. First, we will use Python to create our table schema using standard SQL statements.  Then, we will modify the underlying ObjectScript class for that table to allow it to receive and persist JSON data directly. Next, we will create a simple Node.js application that will send JSON files to our instance of InterSystems IRIS. Finally, we will query that database using Python again to see how the same data could be accessed in multiple languages from multiple contexts.
+This exercise takes you through the steps to use InterSystems IRIS multi-model capability to create a Node.js application that  sends JSON data straight to your database instance without any parsing or mapping. We will use Python, JavaScript, and InterSystems ObjectScript to interact with the data from different contexts. First, we will use Python to create our table schema using standard SQL statements.  Then, we will modify the underlying ObjectScript class for that table to allow it to receive and persist JSON data directly. Next, we will create a simple Node.js application that will send JSON files to our instance of InterSystems IRIS. Finally, we will query that database using Python again to see how the same data could be accessed in multiple languages from multiple contexts.
 
 ## Installation steps:
-
+We recommend using the [InterSystems IRIS Sandbox](www.intersystems.com/try) to run this exercise, in which case you can skip the following installation steps for running it on your local machine.  
 1. This exercise requires the 64-bit version of Python 3.
-	* If you already have Python installed, make sure to check what bit version you are using by launching the python shell by typing `python` .  If the version is 2, try quitting the shell (`control-z + enter` on Windows, `control-d` on Mac) and typing `python3` .
-	* Install Python by going here https://www.python.org/downloads/ (be sure to check off 'Add Python to environment variables' in the'Advanced Options' section of the installation.
+	* If you already have Python installed, make sure to check what bit version you are using by launching the python shell by typing `python` .  If the version is 2, try quitting the shell (`control-z + enter` on Windows, `control-d` on macOS) and typing `python3` .
+	* Install Python by going here https://www.python.org/downloads/ (be sure to check off 'Add Python to environment variables' in the 'Advanced Options' section of the installation.
 
 	* **Note**: do not click the 'Download Python 3.7.4' button directly on that site as it might download the 32 bit version of python, which will not work with the exercise. Make sure to select the link to your operating system and download the 64 bit Python file.
 	* You may need to restart your terminal or even add python to the PATH environment variable if the python command does not work after installing python.
@@ -15,9 +15,9 @@ This exercise takes you through the steps to use InterSystems IRIS multi-model c
 
 2. Open the connections.config file in the top-level directory.
 
-3. Enter the Intersystems IP and Port listed for your intersystem IRIS instance and save. If you are using the InterSystems IRIS Sandbox instance (which can be found [here](https://www.intersystems.com/try-intersystems-iris-for-free/)), you only need to update the ip field to match the ‘external ip’ field found in your lab. If you are using the InterSystems [InterSystems IRIS community edition through Docker](https://hub.docker.com/_/intersystems-iris-data-platform), you will need to follow a few extra steps:
+3. Enter the InterSystems IP and Port listed for your InterSystems IRIS instance and save. If you are using the InterSystems IRIS Sandbox instance (which can be found [here](https://www.intersystems.com/try-intersystems-iris-for-free/)), you only need to update the ip field to match the ‘external ip’ field found in your lab. If you are using the InterSystems [InterSystems IRIS community edition through Docker](https://hub.docker.com/_/intersystems-iris-data-platform), you will need to follow a few extra steps:
 	  * Install Docker 
-	  * Run `docker run --name my-iris2 -d -p 52773:52773 -p 51773:51773 store/intersystems/iris-community:2019.3.0.302.0` 
+	  * Run `docker run --name my-iris2 -d -p 52773:52773 -p 51773:51773 store/intersystems/iris-community:2020.1.0.215.0` 
 	  * Navigate to `http://localhost:52773/csp/sys/%25CSP.Portal.Home.zen` and update your password. If necessary, replace 'localhost' with your computer's IP address
 	  * Change your password in the connections.config file to the one you chose. Change the port value to `51773` and change the IP to 'localhost' or your computer's IP address.
 
@@ -39,8 +39,7 @@ This exercise takes you through the steps to use InterSystems IRIS multi-model c
 			* If the `pip` command is not recognized, you can also use `py -m pip install` for any `pip` installation command.
 		
 		
-
-2. In your preferred IDE or text editor, open `python/createSchema.py` and scroll down to the `create_employee` function. Below the function declaration, insert the following code:
+2. In the IDE provided with your Sandbox or Visual Studio Code, open `python/createSchema.py` and scroll down to the `create_employee` function. Below the function declaration, insert the following code:
 
 	```python
 	create_employee = """
@@ -72,8 +71,8 @@ This exercise takes you through the steps to use InterSystems IRIS multi-model c
 
 1. If you have not installed InterSystems Visual Studio Code, do so  [here](https://code.visualstudio.com/).
 2. Open Visual Studio code. In the extensions manager, search for and install the `InterSystems ObjectScript` extension.
-3. Select a folder for your workspace by selecting **Open Folder** (or **Open** on a Mac) from the File menu. Navigate to the folder where you .
-3. Open your Visual Studio Code settings (**File** (or **Code** if on a Mac) > **Preferences** > **Settings** > **InterSystems ObjectScript** and select **Edit in settings.json**.  Paste the following JSON, filling in the settings for your InterSystems IRIS instance connection:
+3. Select a folder for your workspace by selecting **Open Folder** in the **File Explorer**, or **File** > **Open**. Navigate to the folder where you .
+3. Open your Visual Studio Code settings (**File** (or **Code** if on macOS) > **Preferences** > **Settings** > **InterSystems ObjectScript** and select **Edit in settings.json**.  Paste the following JSON, filling in the settings for your InterSystems IRIS instance connection:
 	```javascript
 	"objectscript.conn": {
 		"active": true, 
@@ -89,7 +88,7 @@ This exercise takes you through the steps to use InterSystems IRIS multi-model c
 
 2. Navigate to  on the ObjectScript extension in your Visual Studio Code, right click `Demo/Employee.cls` and select **Export**.
 
-8. Navigate to the **File Explorere** and open the newly created `src/Demo/Employee.cls` file.
+8. Navigate to the **File Explorer** and open the newly created `src/Demo/Employee.cls` file.
 
 9. Next, back in the **Server Explorer** right click the `Demo.Employee` class, click ‘Copy to Project” and select the project you just created.
 
@@ -119,15 +118,17 @@ ClassMethod fromJSON(jsonString as %String) As %Status
 }
 
 ```
-13. Make sure to recompile the Demo.Employee class by saving it. You have now configured your SQL table class to receive JSON data and automatically create a new record from it.
+13. Make sure to recompile the Demo.Employee class by saving it. You have now configured your SQL table class to receive JSON data and automatically create a new record from it. 
+
+Note: The completed ObjectScript `Employee` class is included in this repository for your reference at `ObjectScript/Solution.Employee.cls`.
 
 ## Create A Node.js App to send JSON files to your database.
-1. If you do not have Node.js installed locally, download and install it [here](https://nodejs.org/en/download/).
+1. If you do not have Node.js installed locally, download and install it [here](https://nodejs.org/en/download/). If you are using the InterSystems IRIS Sandbox, you can skip this step.
 	* **Note**: once Node.js is installed, you may need to restart your terminal in order for it to recognize `node` commands.
 
 12. Run `cd ../nodeApp`
 
-12. Create a new file called `record.json` containing the following JSON opject:
+12. Create a new file called `record.json` containing the following JSON oject:
 
 	```javascript
 	{
@@ -140,7 +141,7 @@ ClassMethod fromJSON(jsonString as %String) As %Status
 13. Run `npm install --save intersystems-iris-native`. This installs the InterSystems IRIS Native API, which enables you to both access the underlying data structures in your database, and to call ObjectScript class methods directly from your code.
 
 
-12. Open the `app.js` file and navigate down to the line `const Iris = connection.createIris()` and paste the following lines below that .
+12. Open the `app.js` file and navigate down to the line `const Iris = connection.createIris()` and paste the following lines below that.
 
 	```JavaScript
 	let record = JSON.parse(fs.readFileSync("./record.json", "utf8"))
@@ -148,7 +149,7 @@ ClassMethod fromJSON(jsonString as %String) As %Status
 	console.log(`Created new record`)
 	```
 
-	This code calls a class method using the Native API and passes a JSON string as a parameter.  For more information, 		see [Calling ObjectScript Methods and Functions](https://docs.intersystems.com/irislatest/csp/docbook/DocBook.UI.Page.cls?KEY=BJSNAT_call)
+	This code calls a class method using the Native API and passes a JSON string as a parameter.  For more information, see [Calling ObjectScript Methods and Functions](https://docs.intersystems.com/irislatest/csp/docbook/DocBook.UI.Page.cls?KEY=BJSNAT_call)
 
 12. In the terminal, type `node app.js`. The node application will output that it has created a new record.
 
@@ -168,3 +169,10 @@ When I run `python createSchema.py` I get an error about inconsistent tabs or sp
 My node.js app quits unexpectedly when I hit 'submit' | Make sure you hit save in Visual Studio Code and that the class compiled successfully. 
 I'm on a Windows and the `python` command is not recognized. 	| Be sure to add python to your environment variables. 
 
+## Further Resources
+
+* Visit [GettingStarted.InterSystems.com](https://gettingstarted.intersystems.com) to learn more about the InterSystems IRIS data platform.
+
+* The [Multi-Model QuickStart](https://gettingstarted.intersystems.com/multimodel-overview/multimodel-quickstart/) provides a quick introduction to how to use the multi-model capabilities of InterSystems IRIS in the language of your choosing.
+
+* Try the [Globals QuickStart][https://gettingstarted.intersystems.com/multimodel-overview/globals-quickstart/] to learn about the proprietary data structure that comes with the InterSystems IRIS data platform.

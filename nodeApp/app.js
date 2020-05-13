@@ -24,8 +24,7 @@ function main()
 
   // ***********************************************************************
   // Paste code here
-  record = JSON.parse(fs.readFileSync("./record.json", "utf8"))
-  Iris.classMethodValue("Demo.Employee", "fromJSON", JSON.stringify(record))
+
 
 }
 
