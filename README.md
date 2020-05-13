@@ -1,6 +1,10 @@
 # Multi-Model Exercise
 
-This exercise takes you through the steps to use InterSystems IRIS multi-model capability to create a Node.js application that  sends JSON data straight to your database instance without any parsing or mapping. We will use Python, JavaScript, and InterSystems ObjectScript to interact with the data from different contexts. First, we will use Python to create our table schema using standard SQL statements.  Then, we will modify the underlying ObjectScript class for that table to allow it to receive and persist JSON data directly. Next, we will create a simple Node.js application that will send JSON files to our instance of InterSystems IRIS. Finally, we will query that database using Python again to see how the same data could be accessed in multiple languages from multiple contexts.
+This exercise takes you through the steps to use InterSystems IRIS multi-model capability to create a Node.js application that  sends JSON data straight to your database instance without any parsing or mapping. We will use Python, JavaScript, and InterSystems ObjectScript to interact with the data from different contexts. 
+* First, we will use Python to create our table schema using standard SQL statements. 
+* Then, we will modify the underlying ObjectScript class for that table to allow it to receive and persist JSON data directly.
+* Next, we will create a simple Node.js application that will send JSON files to our instance of InterSystems IRIS. 
+* Finally, we will query that database using Python again to see how the same data could be accessed in multiple languages from multiple contexts.
 
 ## Installation steps:
 We recommend using the [InterSystems IRIS Sandbox](www.intersystems.com/try) to run this exercise, in which case you can skip the following installation steps for running it on your local machine.  
