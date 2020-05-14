@@ -7,7 +7,7 @@ This exercise takes you through the steps to use InterSystems IRIS multi-model c
 * Finally, we will query that database using Python again to see how the same data could be accessed in multiple languages from multiple contexts.
 
 ## Installation steps:
-We recommend using the [InterSystems IRIS Sandbox](www.intersystems.com/try) to run this exercise, in which case you can skip the following installation steps for running it on your local machine.  
+It is recommended that you use the [InterSystems IRIS Sandbox](www.intersystems.com/try) to run this exercise. If you do so, skip the following installation steps and begin the exercise with step # "Title of Step".
 1. This exercise requires the 64-bit version of Python 3.
 	* If you already have Python installed, make sure to check what bit version you are using by launching the python shell by typing `python` .  If the version is 2, try quitting the shell (`control-z + enter` on Windows, `control-d` on macOS) and typing `python3` .
 	* Install Python by going here https://www.python.org/downloads/ (be sure to check off 'Add Python to environment variables' in the 'Advanced Options' section of the installation.
