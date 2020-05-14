@@ -63,7 +63,7 @@ It is recommended that you use the [InterSystems IRIS Sandbox](www.intersystems.
 3. Run `python createSchema.py`. If successful, the terminal will output `Created table Demo.Employee successfully`.
    * **Note**: This exercise is configured for Python 3. For some users, you may need to run `python3 createSchema.py` if the `python` command defaults to Python 2. 
 	
-4. Validate the `Demo.Employee` table has been created.
+4. Confirm that the `Demo.Employee` table has been created.
    1. Open the Management Portal by following the link provided when you created your instance of the InterSystems IRIS sandbox. If you are using the Docker container, go to [http://localhost:52773/csp/sys/%25CSP.Portal.Home.zen](http://localhost:52773/csp/sys/%25CSP.Portal.Home.zen). 
    3. Navigate to **System Explorer > SQL** and expand the **Tables** section. Find `Demo.Employee` in the list.
 
@@ -91,7 +91,7 @@ It is recommended that you use the [InterSystems IRIS Sandbox](www.intersystems.
 	}
 	```
 
-2. Navigate to  on the ObjectScript extension in your Visual Studio Code, right click `Demo/Employee.cls` and select **Export**.
+2. Navigate to the ObjectScript extension in your Visual Studio Code, right click `Classes/Demo/Employee.cls` and select **Export**.
 
 8. Navigate to the **File Explorer** and open the newly created `src/Demo/Employee.cls` file.
 
@@ -171,7 +171,6 @@ Note: The completed ObjectScript `Employee` class is included in this repository
 Problem | Likely Solution 
 ------------------------- | ------------------------
 When I run `python createSchema.py` I get a 'Data source name not found' error | You may have the 32-bit version of Python installed on your computer instead of the 64-bit.
-When I run `python createSchema.py` I get an error about inconsistent tabs or spaces | When pasting the create_table statement, make sure that the variable name (`create_table`) is declared at the same indentation level as the preceding declarations. 
 My node.js app quits unexpectedly when I click **Submit**. | Make sure that you click **Save** in Visual Studio Code and that the class compiled successfully. 
 I'm on a Windows and the `python` command is not recognized. 	| Be sure to add python to your environment variables. 
 
