@@ -124,7 +124,7 @@ ClassMethod fromJSON(jsonString as %String) As %Status
 ```
 13. Make sure to recompile the Demo.Employee class by saving it. You have now configured your SQL table class to receive JSON data and automatically create a new record from it. 
 
-Note: The completed ObjectScript `Employee` class is included in this repository for your reference at `ObjectScript/Solution.Employee.cls`.
+Note: The completed ObjectScript `Employee` class is included in this repository for your reference at `ObjectScript/Demo.Employee.cls`.
 
 ## Create A Node.js App to send JSON files to your database.
 1. If you do not have Node.js installed locally, download and install it [here](https://nodejs.org/en/download/). If you are using the InterSystems IRIS Sandbox, you can skip this step.
