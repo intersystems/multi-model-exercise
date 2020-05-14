@@ -1,25 +1,27 @@
 # Multi-Model Exercise
 
-This exercise takes you through the steps to use InterSystems IRIS multi-model capability to create a Node.js application that  sends JSON data straight to your database instance without any parsing or mapping. We will use Python, JavaScript, and InterSystems ObjectScript to interact with the data from different contexts. 
-* First, we will use Python to create our table schema using standard SQL statements. 
-* Then, we will modify the underlying ObjectScript class for that table to allow it to receive and persist JSON data directly.
-* Next, we will create a simple Node.js application that will send JSON files to our instance of InterSystems IRIS. 
-* Finally, we will query that database using Python again to see how the same data could be accessed in multiple languages from multiple contexts.
+This exercise details the process of using InterSystems IRIS® data platform multi-model capability to create a Node.js application that  sends JSON data straight to your database instance without any parsing or mapping. 
+
+In this exercise, we will use Python, JavaScript, and InterSystems ObjectScript to interact with data from different contexts, following these steps:
+1.	Use Python to create a table schema using standard SQL statements.
+2.  Modify the underlying ObjectScript class for that table to allow it to receive and persist JSON data directly.
+3.  Create a simple Node.js application that will send JSON files to the instance of InterSystems IRIS. 
+4.	Query that database using Python again to see how the same data could be accessed in multiple languages from multiple contexts.
 
 ## Installation steps:
 It is recommended that you use the [InterSystems IRIS Sandbox](www.intersystems.com/try) to run this exercise. If you do so, skip the following installation steps and begin the exercise with step # "Title of Step".
 1. This exercise requires the 64-bit version of Python 3.
-	* If you already have Python installed, make sure to check what bit version you are using by launching the python shell by typing `python` .  If the version is 2, try quitting the shell (`control-z + enter` on Windows, `control-d` on macOS) and typing `python3` .
+	* If you already have Python installed, be sure to check what bit version you are using by launching the python shell by typing `python` .  If the version is 2, try quitting the shell (`control-z + enter` on Windows, or `control-d` on macOS) and typing `python3` .
 	* Install Python by going here https://www.python.org/downloads/ (be sure to check off 'Add Python to environment variables' in the 'Advanced Options' section of the installation.
 
-	* **Note**: do not click the 'Download Python 3.7.4' button directly on that site as it might download the 32 bit version of python, which will not work with the exercise. Make sure to select the link to your operating system and download the 64 bit Python file.
+	* **Note**: do not click the 'Download Python 3.7.4' button directly on that site as it might download the 32 bit version of python, which will not work with the exercise. Select the link to your operating system and download the 64 bit Python file.
 	* You may need to restart your terminal or even add python to the PATH environment variable if the python command does not work after installing python.
 
 2. Open the InterSystems IRIS sandbox IDE. If you are completing this exercise on your local machine, open Visual Studio Code, which can be downloaded [here](https://code.visualstudio.com/).
 
 2. Begin by cloning this repository: `git clone https://github.com/intersystems/multi-model-exercise`.
 
-2. Open the connections.config file in the top-level directory. Enter the InterSystems IP and Port listed for your InterSystems IRIS instance and click Save. If you are using the InterSystems IRIS sandbox instance (which can be found [here](https://www.intersystems.com/try-intersystems-iris-for-free/)), you only need to update the IP field to match the ‘external ip’ field found in your lab. If you are using the InterSystems [InterSystems IRIS community edition through Docker](https://hub.docker.com/_/intersystems-iris-data-platform), you will need to follow a few extra steps:
+2. Open the connections.config file in the top-level directory. Enter the InterSystems IP and Port listed for your InterSystems IRIS instance and click Save. If you are using the [InterSystems IRIS sandbox instance](https://www.intersystems.com/try-intersystems-iris-for-free/), you only need to update the IP field to match the ‘external ip’ field found in your lab. If you are using the InterSystems [InterSystems IRIS community edition through Docker](https://hub.docker.com/_/intersystems-iris-data-platform), you will need to follow a few extra steps:
 	  * Install Docker 
 	  * Run `docker run --name my-iris2 -d -p 52773:52773 -p 51773:51773 store/intersystems/iris-community:2020.1.0.215.0` 
 	  * Navigate to `http://localhost:52773/csp/sys/%25CSP.Portal.Home.zen` and update your password. If necessary, replace 'localhost' with your computer's IP address
@@ -27,7 +29,7 @@ It is recommended that you use the [InterSystems IRIS Sandbox](www.intersystems.
 
 
 ## Create The Table Schema Using Python
-1. Install and configure python
+1. Install and configure Python
   	* Run `cd ./python`
 	* On the sandbox:
 		* Run `odbcinst -i -d -f pyodbc_wheel/linux/odbcinst.ini`
@@ -170,7 +172,7 @@ Note: The completed ObjectScript `Employee` class is included in this repository
 
 Problem | Likely Solution 
 ------------------------- | ------------------------
-When I run `python createSchema.py` I get a 'Data source name not found' error | You may have the 32-bit version of Python installed on your computer instead of the 64-bit.
+I get a 'Data source name not found' error when I run `python createSchema.py`| You may have the 32-bit version of Python installed on your computer instead of the 64-bit.
 My node.js app quits unexpectedly when I click **Submit**. | Make sure that you click **Save** in Visual Studio Code and that the class compiled successfully. 
 I'm on a Windows and the `python` command is not recognized. 	| Be sure to add python to your environment variables. 
 
