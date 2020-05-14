@@ -23,8 +23,11 @@ function main()
   const Iris = connection.createIris()
 
   // ***********************************************************************
-  // Paste code here
+  // Uncomment code below:
 
+  // let record = JSON.parse(fs.readFileSync("./record.json", "utf8"))
+	// Iris.classMethodValue("Demo.Employee", "fromJSON", JSON.stringify(record))
+	// console.log(`Created new record in Demo.Employee table.`)
 
 }
 

@@ -46,16 +46,25 @@ def create_employee(connection):
     # Create cursor
     cursor = connection.cursor()
 
-    # Paste create statement below
-
+    # Uncomment the code below:
+    
+    # create_employee = """
+    # CREATE TABLE Demo.Employee(
+    #     ID Integer PRIMARY KEY AUTO_INCREMENT,
+    #     Name varchar(256),
+    #     Title varchar(256), 
+    #     Department varchar(50)
+    # )
+    # """
+    
     try:
         cursor.execute(create_employee)
     except Exception as e:
         delete_old_table(cursor, "Demo.Employee")
-        cursor.execute(create_employee)
+        print(e)
 
     connection.commit()
-    print("created table successfully")
+    print("Created table Demo.Employee successfully")
 
 def run():
     # Get connections for PyODBC
