@@ -179,4 +179,4 @@ I'm on a Windows and the `python` command is not recognized. 	| Be sure to add p
 
 * The [Multi-Model QuickStart](https://gettingstarted.intersystems.com/multimodel-overview/multimodel-quickstart/) provides a quick introduction to how to use the multi-model capabilities of InterSystems IRIS in the language of your choosing.
 
-* Try the [Globals QuickStart][https://gettingstarted.intersystems.com/multimodel-overview/globals-quickstart/] to learn about the proprietary data structure that comes with the InterSystems IRIS data platform.
+* Try the (Globals QuickStart)[https://gettingstarted.intersystems.com/multimodel-overview/globals-quickstart/] to learn about the proprietary data structure that comes with the InterSystems IRIS data platform.
