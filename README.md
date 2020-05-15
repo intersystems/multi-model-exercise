@@ -11,42 +11,18 @@ In this exercise, we will use Python, JavaScript, and InterSystems ObjectScript 
 
 ## Installation steps
 
-It is recommended that you use the [InterSystems IRIS Sandbox](www.intersystems.com/try) to run this exercise. If you do so, skip the following installation steps and begin the exercise with [Create The Table Schema Using Python](#create-the-table-schema-using-python).
+1. Open the InterSystems IRIS sandbox IDE and clone this repository: `git clone -b try-iris https://github.com/intersystems/multi-model-exercise`.
 
-1. This exercise requires the 64-bit version of Python 3.
-   * If you already have Python installed, be sure to check what bit version you are using by launching the python shell by typing `python` .  If the version is 2, try quitting the shell (`control-z + enter` on Windows, or `control-d` on macOS) and typing `python3` .
-   * Install Python by going here <https://www.python.org/downloads/> (be sure to check off 'Add Python to environment variables' in the 'Advanced Options' section of the installation.
-   * **Note**: do not click the 'Download Python 3.7.4' button directly on that site as it might download the 32 bit version of python, which will not work with the exercise. Select the link to your operating system and download the 64 bit Python file.
-   * You may need to restart your terminal or even add python to the PATH environment variable if the python command does not work after installing python.
-
-2. Open the InterSystems IRIS sandbox IDE. If you are completing this exercise on your local machine, open Visual Studio Code, which can be downloaded [here](https://code.visualstudio.com/).
-
-3. Begin by cloning this repository: `git clone https://github.com/intersystems/multi-model-exercise`.
-
-4. Open the connections.config file in the top-level directory. Enter the InterSystems IP and Port listed for your InterSystems IRIS instance and click Save. If you are using the [InterSystems IRIS sandbox instance](https://www.intersystems.com/try-intersystems-iris-for-free/), you only need to update the IP field to match the ‘external ip’ field found in your lab. If you are using the InterSystems [InterSystems IRIS community edition through Docker](https://hub.docker.com/_/intersystems-iris-data-platform), you will need to follow a few extra steps:
-	  * Install Docker 
-	  * Run `docker run --name my-iris2 -d -p 52773:52773 -p 51773:51773 store/intersystems/iris-community:2020.1.0.215.0` 
-	  * Navigate to `http://localhost:52773/csp/sys/%25CSP.Portal.Home.zen` and update your password. If necessary, replace 'localhost' with your computer's IP address
-	  * Change your password in the connections.config file to the one you chose. Change the port value to `51773` and change the IP to 'localhost' or your computer's IP address.
+3. Open the connections.config file in the top-level directory and update the IP and Port fields to match the ‘Server IP Address’ and 'Server Port' fields found in your sandbox and click save.
 
 ## Create The Table Schema Using Python
 
 1. Install and configure Python
-  	* Run `cd ./python`
-	* On the sandbox:
-		* Run `odbcinst -i -d -f pyodbc_wheel/linux/odbcinst.ini`
-	* On macOS:
-		* Install [homebrew](https://brew.sh/)
-		* Run `brew install unixodbc`
-		* Run `odbcinst -i -d -f pyodbc_wheel/mac/odbcinst.ini`
-		* Run `pip install pip==7.1.2`
-		* Run `pip install --upgrade --global-option=build_ext --global-option="-I/usr/local/include" --global-option="-L/usr/local/lib" --allow-external pyodbc --allow-unverified pyodbc pyodbc`
-	* On Windows:
-		* Run `./pyodbc_wheel/ODBC-2019.1.0.510.0-win_x64.exe`
-		* Run `pip install pyodbc`
-			* If the `pip` command is not recognized, you can also use `py -m pip install` for any `pip` installation command.
+  	* Run `cd ~/multi-model-exercise/python`
+	* Run `odbcinst -i -d -f pyodbc_wheel/linux/odbcinst.ini`
+	
 		
-2. In the IDE provided with your sandbox or Visual Studio Code, open `python/createSchema.py` and scroll down to the `create_employee` function. Below the function declaration, uncomment the following code:
+2. Open `python/createSchema.py` and scroll down to the `create_employee` function. Below the function declaration, uncomment the following code:
 
 	```python
 	create_employee = """
@@ -61,13 +37,12 @@ It is recommended that you use the [InterSystems IRIS Sandbox](www.intersystems.
 
 	As you can see, this is a standard SQL create statement that will generate an Employee table on your InterSystems IRIS instance.
 	
-	**Note**: if you are using python 2 or earlier, follow the commented instructions in `createschema.py` in the `connect_to_iris()` function to configure the connection properly.
 
 3. Run `python createSchema.py`. If successful, the terminal will output `Created table Demo.Employee successfully`.
-   * **Note**: This exercise is configured for Python 3. For some users, you may need to run `python3 createSchema.py` if the `python` command defaults to Python 2. 
+   
 	
 4. Confirm that the `Demo.Employee` table has been created.
-   1. Open the Management Portal by following the link provided when you created your instance of the InterSystems IRIS sandbox. If you are using the Docker container, go to [http://localhost:52773/csp/sys/%25CSP.Portal.Home.zen](http://localhost:52773/csp/sys/%25CSP.Portal.Home.zen). 
+   1. Open the Management Portal by clicking **InterSystems** > **Management Portal** at the top of your sandbox IDE.
    3. Navigate to **System Explorer > SQL** and expand the **Tables** section. Find `Demo.Employee` in the list.
 
 ## Modify the table class using InterSystems ObjectScript
@@ -102,6 +77,7 @@ It is recommended that you use the [InterSystems IRIS Sandbox](www.intersystems.
 1. At the top of the Demo.Employee class, change `Extends %Persistent` to `Extends (%Persistent, %JSON.Adaptor)`. 
 
 InterSystems ObjectScript is an object-oriented programming language that supports multiple inheritance.  This means that by inheriting the `%JSON.Adaptor` class, your table is now automatically able to import JSON data into instances. For more information on the `%JSON.Adaptor` class read [Using the JSON Adaptor](https://docs.intersystems.com/irislatest/csp/docbook/DocBook.UI.Page.cls?KEY=GJSON_adaptor).
+
 2. Because our table includes an auto-incremented primary key, we need to tell the `JSON.Adaptor` class not to look for that field in incoming JSON files, but to output it as a field when exporting class instances to JSON format.  To do this, find the ID property in the Employee class and add `(%JSONINCLUDE = "outputonly")` after `%Library.AutoIncrement`.
 3. Before we can run this file, we need to add one small class method to expose the functionality of the `%JSON.Adaptor` class to the Native API (and, by extension, to our Node.js application).  Below the Property and Parameter declarations in the `Demo.Employee` class, paste the following code.
 
@@ -123,10 +99,8 @@ Note: The completed ObjectScript `Employee` class is included in this repository
 
 ## Create A Node.js App to send JSON files to your database
 
-1. If you do not have Node.js installed locally, download and install it [here](https://nodejs.org/en/download/). If you are using the InterSystems IRIS sandbox, you can skip this step.
-	* **Note**: once Node.js is installed, you may need to restart your terminal in order for it to recognize `node` commands.
-2. Run `cd ../nodeApp`
-3. Create a new file called `record.json` containing the following JSON oject:
+2. Return to your InterSystems IRIS sandbox IDE and run `cd ~/multi-model-exercise/nodeApp`
+3. Create a new file called `record.json` containing the following JSON object:
 
 	```javascript
 	{
@@ -151,21 +125,14 @@ Note: The completed ObjectScript `Employee` class is included in this repository
 
 ## Query The Database With Python
 
-1. `cd` back into the Python directory (`cd ../python`)
+1. `cd` back into the Python directory (`cd ~/multi-model-exercise/python`)
 2. Run `python query.py`. You should see the results of the SQL query, which includes the record of JJ Smith that you inserted using Node.js.
 
 ## Troubleshooting
 
 Problem | Likely Solution 
 ------------------------- | ------------------------
-I get a 'Data source name not found' error when I run `python createSchema.py`| You may have the 32-bit version of Python installed on your computer instead of the 64-bit.
 My node.js app quits unexpectedly when I click **Submit**. | Make sure that you click **Save** in Visual Studio Code and that the class compiled successfully. 
-I'm on a Windows and the `python` command is not recognized. 	| Be sure to add python to your environment variables. 
 
-## Further Resources
 
-* Visit [GettingStarted.InterSystems.com](https://gettingstarted.intersystems.com) to learn more about InterSystems IRIS data platform.
 
-* The [Multi-Model QuickStart](https://gettingstarted.intersystems.com/multimodel-overview/multimodel-quickstart/) provides a quick introduction to how to use the multi-model capabilities of InterSystems IRIS in the language of your choosing.
-
-* Try the (Globals QuickStart)[https://gettingstarted.intersystems.com/multimodel-overview/globals-quickstart/] to learn about the proprietary data structure that comes with InterSystems IRIS data platform.
