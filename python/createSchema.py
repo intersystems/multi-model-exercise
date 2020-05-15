@@ -1,8 +1,6 @@
 import pyodbc
 import os
 
-
-
 def connect_to_iris():
     connection = get_connection_config()
     
