@@ -4,3 +4,4 @@ nodeApp/node_modules/*
 *.pyc
 ./python/__pycache__
 */.DS_Store
+.DS_Store

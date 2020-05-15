@@ -1,7 +1,10 @@
-Class Demo.Employee Extends (%Persistent,%JSON.Adaptor) [ ClassType = persistent, DdlAllowed, Final, Owner = {SuperUser}, ProcedureBlock, SqlRowIdPrivate, SqlTableName = Employee ]
+Class Demo.Employee Extends (%Persistent, %JSON.Adaptor) [ ClassType = persistent, DdlAllowed, Final, Owner = {SuperUser}, ProcedureBlock, SqlRowIdPrivate, SqlTableName = Employee ]
 {
 
-Property ID As %Library.AutoIncrement(%JSONINCLUDE ="outputonly") [ SqlColumnNumber = 2 ]; //change here
+Property ID As %Library.AutoIncrement(%JSONINCLUDE = "outputonly") [ SqlColumnNumber = 2 ];
+
+// change here
+
 Property Name As %Library.String(MAXLEN = 256) [ SqlColumnNumber = 3 ];
 
 Property Title As %Library.String(MAXLEN = 256) [ SqlColumnNumber = 4 ];
@@ -16,9 +19,7 @@ Index DDLBEIndex [ Extent, SqlName = "%%DDLBEIndex", Type = bitmap ];
 /// DDL Primary Key Specification
 Index EMPLOYEEPKEY1 On ID [ PrimaryKey, SqlName = EMPLOYEE_PKEY1, Type = index, Unique ];
 
-
-ClassMethod fromJSON(jsonString as %String) As %Status
-
+ClassMethod fromJSON(jsonString As %String) As %Status
 {
 	set employee = ..%New() 		//create a new class instance
 	do employee.%JSONImport(jsonString) 	//call the %JSON.Adapter instance method to import JSON string
@@ -33,5 +34,5 @@ ClassMethod fromJSON(jsonString as %String) As %Status
 }
 
 
-}
 
+}
