@@ -126,7 +126,7 @@ Note: The completed ObjectScript `Employee` class is included in this repository
 1. If you do not have Node.js installed locally, download and install it [here](https://nodejs.org/en/download/). If you are using the InterSystems IRIS sandbox, you can skip this step.
 	* **Note**: once Node.js is installed, you may need to restart your terminal in order for it to recognize `node` commands.
 2. Run `cd ../nodeApp`
-3. Create a new file called `record.json` containing the following JSON oject:
+3. Create a new file called `record.json` containing the following JSON object:
 
 	```javascript
 	{
