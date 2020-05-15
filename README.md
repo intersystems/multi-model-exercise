@@ -8,8 +8,11 @@ In this exercise, we will use Python, JavaScript, and InterSystems ObjectScript 
 3.  Create a simple Node.js application that will send JSON files to the instance of InterSystems IRIS. 
 4.	Query that database using Python again to see how the same data could be accessed in multiple languages from multiple contexts.
 
-## Installation steps:
-It is recommended that you use the [InterSystems IRIS Sandbox](www.intersystems.com/try) to run this exercise. If you do so, skip the following installation steps and begin the exercise with step # "Title of Step".
+## Installation steps
+
+It is recommended that you use the [InterSystems IRIS Sandbox](www.intersystems.com/try) to run this exercise. If you do so, skip the first installation step and begin the exercise with step # 2.
+
+
 1. This exercise requires the 64-bit version of Python 3.
 	* If you already have Python installed, be sure to check what bit version you are using by launching the python shell by typing `python` .  If the version is 2, try quitting the shell (`control-z + enter` on Windows, or `control-d` on macOS) and typing `python3` .
 	* Install Python by going here https://www.python.org/downloads/ (be sure to check off 'Add Python to environment variables' in the 'Advanced Options' section of the installation.
@@ -22,7 +25,8 @@ It is recommended that you use the [InterSystems IRIS Sandbox](www.intersystems.
 2. Begin by cloning this repository: `git clone https://github.com/intersystems/multi-model-exercise`.
 
 
-2. Open the connections.config file in the top-level directory. Enter the InterSystems IP and Port listed for your InterSystems IRIS instance and click Save. If you are using the [InterSystems IRIS sandbox instance](https://www.intersystems.com/try-intersystems-iris-for-free/), you only need to update the IP field to match the ‘external ip’ field found in your lab. If you are using the InterSystems [InterSystems IRIS community edition through Docker](https://hub.docker.com/_/intersystems-iris-data-platform), you will need to follow a few extra steps:
+4. Open the connections.config file in the top-level directory. Enter the InterSystems IP and Port listed for your InterSystems IRIS instance and click Save. If you are using the [InterSystems IRIS sandbox instance](https://www.intersystems.com/try-intersystems-iris-for-free/), update the IP and Port fields to match the ‘Server IP Address’ and 'Server Port' fields found in your sandbox. If you are using the InterSystems [InterSystems IRIS community edition through Docker](https://hub.docker.com/_/intersystems-iris-data-platform), you will need to follow a few extra steps:
+
 	  * Install Docker 
 	  * Run `docker run --name my-iris2 -d -p 52773:52773 -p 51773:51773 store/intersystems/iris-community:2020.1.0.215.0` 
 	  * Navigate to `http://localhost:52773/csp/sys/%25CSP.Portal.Home.zen` and update your password. If necessary, replace 'localhost' with your computer's IP address
@@ -135,9 +139,9 @@ Note: The completed ObjectScript `Employee` class is included in this repository
 1. If you do not have Node.js installed locally, download and install it [here](https://nodejs.org/en/download/). If you are using the InterSystems IRIS sandbox, you can skip this step.
 	* **Note**: once Node.js is installed, you may need to restart your terminal in order for it to recognize `node` commands.
 
-12. Run `cd ../nodeApp`
+2. Run `cd ../nodeApp`
+3. Create a new file called `record.json` containing the following JSON object:
 
-12. Create a new file called `record.json` containing the following JSON oject:
 
 	```javascript
 	{
