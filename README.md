@@ -23,7 +23,7 @@ It is recommended that you use the [InterSystems IRIS Sandbox](www.intersystems.
 
 3. Begin by cloning this repository: `git clone https://github.com/intersystems/multi-model-exercise`.
 
-4. Open the connections.config file in the top-level directory. Enter the InterSystems IP and Port listed for your InterSystems IRIS instance and click Save. If you are using the [InterSystems IRIS sandbox instance](https://www.intersystems.com/try-intersystems-iris-for-free/), you only need to update the IP field to match the ‘external ip’ field found in your lab. If you are using the InterSystems [InterSystems IRIS community edition through Docker](https://hub.docker.com/_/intersystems-iris-data-platform), you will need to follow a few extra steps:
+4. Open the connections.config file in the top-level directory. Enter the InterSystems IP and Port listed for your InterSystems IRIS instance and click Save. If you are using the [InterSystems IRIS sandbox instance](https://www.intersystems.com/try-intersystems-iris-for-free/), update the IP and Port fields to match the ‘Server IP Address’ and 'Server Port' fields found in your sandbox. If you are using the InterSystems [InterSystems IRIS community edition through Docker](https://hub.docker.com/_/intersystems-iris-data-platform), you will need to follow a few extra steps:
 	  * Install Docker 
 	  * Run `docker run --name my-iris2 -d -p 52773:52773 -p 51773:51773 store/intersystems/iris-community:2020.1.0.215.0` 
 	  * Navigate to `http://localhost:52773/csp/sys/%25CSP.Portal.Home.zen` and update your password. If necessary, replace 'localhost' with your computer's IP address
