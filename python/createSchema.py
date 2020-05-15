@@ -1,8 +1,6 @@
 import pyodbc
 import os
 
-
-
 def connect_to_iris():
     connection = get_connection_config()
     
@@ -10,10 +8,14 @@ def connect_to_iris():
     connection_string = 'DRIVER={};SERVER={};PORT={};DATABASE={};UID={};PWD={}'\
         .format(connection['driver'], connection['ip'], int(connection['port']),\
          connection['namespace'], connection['username'], connection['password'])
-    
     pyodbc_connection = pyodbc.connect(connection_string)
+
+    
     pyodbc_connection.setdecoding(pyodbc.SQL_CHAR, encoding='utf-8')
     pyodbc_connection.setencoding(encoding='utf-8')
+
+    
+
     print("Connected to InterSystem IRIS")
     return pyodbc_connection
 
@@ -44,7 +46,7 @@ def create_employee(connection):
         cursor.execute(create_employee)
     except Exception as e:
         delete_old_table(cursor, "Demo.Employee")
-        cursor.execute(create_employee)
+        print(e)
 
     connection.commit()
     print("created table successfully")
