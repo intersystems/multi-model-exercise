@@ -11,7 +11,7 @@ In this exercise, we will use Python, JavaScript, and InterSystems ObjectScript 
 
 ## Installation steps
 
-It is recommended that you use the [InterSystems IRIS Sandbox](www.intersystems.com/try) to run this exercise. If you do so, skip the following installation steps and begin the exercise with [Create The Table Schema Using Python](#create-the-table-schema-using-python).
+It is recommended that you use the [InterSystems IRIS Sandbox](www.intersystems.com/try) to run this exercise. If you do so, skip the first installation step and begin the exercise with step # 2.
 
 1. This exercise requires the 64-bit version of Python 3.
    * If you already have Python installed, be sure to check what bit version you are using by launching the python shell by typing `python` .  If the version is 2, try quitting the shell (`control-z + enter` on Windows, or `control-d` on macOS) and typing `python3` .
