@@ -40,7 +40,16 @@ def create_employee(connection):
     # Create cursor
     cursor = connection.cursor()
 
-    # Paste create statement below
+    # Uncomment the code below:
+    
+    # create_employee = """
+    # CREATE TABLE Demo.Employee(
+    #     ID Integer PRIMARY KEY AUTO_INCREMENT,
+    #     Name varchar(256),
+    #     Title varchar(256), 
+    #     Department varchar(50)
+    # )
+    # """
 
     try:
         cursor.execute(create_employee)
