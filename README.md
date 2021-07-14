@@ -22,7 +22,7 @@ In this exercise, we will use Python, JavaScript, and InterSystems ObjectScript 
 	* Run `odbcinst -i -d -f pyodbc_wheel/linux/odbcinst.ini`
 	
 		
-2. Open `python/createSchema.py` and scroll down to the `create_employee` function. Below the function declaration, uncomment the following code:
+2. In the IDE provided with your sandbox or Visual Studio Code, open `python/createSchema.py` and scroll down to the `create_employee` function. Below the function declaration, uncomment the following code:
 
 	```python
 	create_employee = """
@@ -137,3 +137,10 @@ My node.js app quits unexpectedly when I click **Submit**. | Make sure that you 
 
 
 
+## Further Resources
+
+* Visit [GettingStarted.InterSystems.com](https://gettingstarted.intersystems.com) to learn more about InterSystems IRIS data platform.
+
+* The [Multi-Model QuickStart](https://gettingstarted.intersystems.com/multimodel-overview/multimodel-quickstart/) provides a quick introduction to how to use the multi-model capabilities of InterSystems IRIS in the language of your choosing.
+
+* Try the (Globals QuickStart)[https://gettingstarted.intersystems.com/multimodel-overview/globals-quickstart/] to learn about the proprietary data structure that comes with InterSystems IRIS data platform.

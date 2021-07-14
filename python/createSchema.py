@@ -50,7 +50,6 @@ def create_employee(connection):
     #     Department varchar(50)
     # )
     # """
-
     try:
         cursor.execute(create_employee)
     except Exception as e:
@@ -58,7 +57,7 @@ def create_employee(connection):
         print(e)
 
     connection.commit()
-    print("created table successfully")
+    print("Created table Demo.Employee successfully")
 
 def run():
     # Get connections for PyODBC
