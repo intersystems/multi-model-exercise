@@ -54,7 +54,9 @@ def create_employee(connection):
         cursor.execute(create_employee)
     except Exception as e:
         delete_old_table(cursor, "Demo.Employee")
+        print("ErrorTable not created.")
         print(e)
+        return
 
     connection.commit()
     print("Created table Demo.Employee successfully")
