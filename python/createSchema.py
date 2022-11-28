@@ -16,7 +16,7 @@ def connect_to_iris():
 
     
 
-    print("Connected to InterSystem IRIS")
+    print("Connected to InterSystems IRIS")
     return pyodbc_connection
 
 def get_connection_config():
