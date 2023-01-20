@@ -8,5 +8,5 @@ In this exercise, we will use Python, JavaScript, and InterSystems ObjectScript 
 3.  Create a simple Node.js application that will send JSON files to the instance of InterSystems IRIS. 
 4.	Query that database using Python again to see how the same data could be accessed in multiple languages from multiple contexts.
 
-Instructions for this exercise are available on the [InterSystems Learning site](https://learning.intersystems.com/course/view.php?name=MultimodelPythonNode)
+Instructions for this exercise are available on the [InterSystems Learning site](https://learning.intersystems.com/course/view.php?name=MultimodelPythonNode).
 
